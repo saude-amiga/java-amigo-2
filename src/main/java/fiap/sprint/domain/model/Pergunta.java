@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Pergunta{
 
+    private int id;
     private String titulo;
     private String corpo;
     private int autorDaPergunta;
@@ -14,6 +15,14 @@ public class Pergunta{
         this.titulo = titulo;
         this.autorDaPergunta = autor;
         this.data = data;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void responderPergunta(int idAutor, String resposta) {

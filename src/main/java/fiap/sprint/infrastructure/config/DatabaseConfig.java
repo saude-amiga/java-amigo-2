@@ -1,7 +1,7 @@
 package fiap.sprint.infrastructure.config;
 
+import fiap.sprint.domain.repository.AcessoRepository;
 import fiap.sprint.domain.repository.AgendamentoRepository;
-import fiap.sprint.domain.repository.HistoricoRepository;
 import fiap.sprint.domain.repository.PerguntaRepository;
 import fiap.sprint.domain.repository.UsuarioRepository;
 import fiap.sprint.infrastructure.persistence.*;
@@ -22,8 +22,8 @@ public class DatabaseConfig {
     }
 
     @ApplicationScoped
-    public HistoricoRepository historicoRepository(DatabaseConnection databaseConnection) {
-        return new JdbcHistoricoRepository(databaseConnection);
+    public AcessoRepository acessoRepository(DatabaseConnection databaseConnection) {
+        return new JdbcAcessoRepository(databaseConnection);
     }
 
     @ApplicationScoped

@@ -22,11 +22,6 @@ public class ServiceConfig {
     }
 
     @ApplicationScoped
-    public HistoricoService historicoService(AgendamentoRepository acessoRepository) {
-        return new HistoricoServiceImpl(acessoRepository);
-    }
-
-    @ApplicationScoped
     public PerguntaService perguntaService(PerguntaRepository perguntaRepository) {
         return new PerguntaServiceImpl(perguntaRepository);
     }
