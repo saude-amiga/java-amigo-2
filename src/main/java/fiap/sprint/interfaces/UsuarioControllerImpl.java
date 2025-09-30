@@ -32,4 +32,9 @@ public class UsuarioControllerImpl implements UsuarioController {
     public ArrayList<Usuario> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
+
+    @Override
+    public boolean loginExiste(String email, String senha) {
+        return usuarioService.loginExiste(String email, String senha);
+    }
 }

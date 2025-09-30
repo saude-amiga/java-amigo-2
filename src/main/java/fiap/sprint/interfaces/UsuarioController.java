@@ -9,4 +9,6 @@ public interface UsuarioController {
     Usuario alterarNome(String nome);
     Usuario alterarEmail(String email);
     ArrayList<Usuario> listarUsuarios();
+
+    boolean loginExiste(String email, String senha);
 }

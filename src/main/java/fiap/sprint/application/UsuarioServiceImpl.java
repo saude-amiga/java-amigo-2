@@ -33,4 +33,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     public ArrayList<Usuario> listarUsuarios() {
         return null;
     }
+
+    @Override
+    boolean loginExiste(String email, String senha){
+        ArrayList<Usuario> listaUsuario = this.listarUsuarios();
+        for(Usuario usuario: listaUsuario){
+            if(usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
