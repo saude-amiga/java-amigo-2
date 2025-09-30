@@ -1,4 +1,4 @@
 package fiap.sprint.domain.repository;
 
-public interface HistoricoRepository {
+public interface AcessoRepository {
 }

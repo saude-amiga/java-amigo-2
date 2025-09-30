@@ -1,8 +1,8 @@
 package fiap.sprint.infrastructure.config;
 
 import fiap.sprint.application.*;
+import fiap.sprint.domain.repository.AcessoRepository;
 import fiap.sprint.domain.repository.AgendamentoRepository;
-import fiap.sprint.domain.repository.HistoricoRepository;
 import fiap.sprint.domain.repository.PerguntaRepository;
 import fiap.sprint.domain.repository.UsuarioRepository;
 import fiap.sprint.domain.service.*;
@@ -12,8 +12,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class ServiceConfig {
 
     @ApplicationScoped
-    public AcessoService acessoService(HistoricoRepository historicoRepository) {
-        return new AcessoServiceImpl(historicoRepository);
+    public AcessoService acessoService(AcessoRepository acessoRepository) {
+        return new AcessoServiceImpl(acessoRepository);
     }
 
     @ApplicationScoped
@@ -22,8 +22,8 @@ public class ServiceConfig {
     }
 
     @ApplicationScoped
-    public HistoricoService historicoService(HistoricoRepository historicoRepository) {
-        return new HistoricoServiceImpl(historicoRepository);
+    public HistoricoService historicoService(AgendamentoRepository acessoRepository) {
+        return new HistoricoServiceImpl(acessoRepository);
     }
 
     @ApplicationScoped

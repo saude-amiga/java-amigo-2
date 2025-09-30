@@ -1,13 +1,14 @@
 package fiap.sprint.application;
 
+import fiap.sprint.domain.repository.AcessoRepository;
 import fiap.sprint.domain.repository.HistoricoRepository;
 import fiap.sprint.domain.service.AcessoService;
 
 public class AcessoServiceImpl implements AcessoService {
 
-    private final HistoricoRepository historicoRepository;
+    private final AcessoRepository acessoRepository;
 
-    public AcessoServiceImpl(HistoricoRepository historicoRepository) {
-        this.historicoRepository = historicoRepository;
+    public AcessoServiceImpl(AcessoRepository acessoRepository) {
+        this.acessoRepository = acessoRepository;
     }
 }
