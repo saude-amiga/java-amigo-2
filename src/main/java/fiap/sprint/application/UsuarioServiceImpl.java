@@ -44,4 +44,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         return false;
     }
+
+    @Override
+    public void deletarUsuario(int id) {
+        usuarioRepository.deletarUsuario(id);
+    }
 }

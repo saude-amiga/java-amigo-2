@@ -37,4 +37,9 @@ public class UsuarioControllerImpl implements UsuarioController {
     public boolean loginExiste(String email, String senha) {
         return usuarioService.loginExiste(email, senha);
     }
+
+    @Override
+    public void deletarUsuario(int id) {
+        usuarioService.deletarUsuario(id);
+    }
 }

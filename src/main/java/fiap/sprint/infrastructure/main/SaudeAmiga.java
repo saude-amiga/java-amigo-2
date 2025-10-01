@@ -37,8 +37,58 @@ public class SaudeAmiga implements QuarkusApplication {
 
     @Override
     public int run(String... args) {
+
+        //funções principais do aplicativo
         criarUsuario();
         logar();
+        marcarConsulta();
+        confirmarConsulta();
+        visualizarHistoricoDeAcessos();
+
+        //funções de alteração geral (CRUD) dos modelos
+        //Acesso
+            //Create
+                acessoController.createAcesso();
+            //Read
+                acessoController.listarAcessos();
+            //Update
+                acessoController.editarAcesso();
+            //Delete
+                acessoController.deletarAcesso();
+
+
+        //Agendamento
+            //Create
+                agendamentoController.createAgendamento();
+            //Read
+                agendamentoController.listarAgendamento();
+            //Update
+                agendamentoController.editarAgendamento();
+            //Delete
+                agendamentoController.deletarAgendamento();
+
+
+        //Pergunta
+            //Create
+                perguntaController.criarPergunta();
+            //Read
+                perguntaController.listarPerguntas();
+            //Update
+                perguntaController.responderPergunta();
+            //Delete
+                perguntaController.deletarPergunta();
+
+
+        //Usuario
+            //Create
+                usuarioController.criarUsuario();
+            //Read
+                usuarioController.listarUsuarios();
+            //Update
+                usuarioController.alterarEmail(EMAIL);
+            //Delete
+                usuarioController.deletarUsuario();
+
 
         return 0;
     }

@@ -11,4 +11,6 @@ public interface UsuarioController {
     ArrayList<Usuario> listarUsuarios();
 
     boolean loginExiste(String email, String senha);
+
+    void deletarUsuario();
 }
