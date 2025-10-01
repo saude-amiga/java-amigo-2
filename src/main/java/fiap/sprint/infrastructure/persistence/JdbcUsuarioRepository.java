@@ -7,6 +7,7 @@ import oracle.jdbc.proxy.annotation.Pre;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcUsuarioRepository implements UsuarioRepository {
@@ -77,6 +78,39 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
 
     @Override
     public List<Usuario> listarUsuarios() {
-        return List.of();
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            String sql = "SELECT ID, NAME, EMAIL, SENHA FROM " + tableNome;
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nome = resultSet.getString("NAME");
+                String email = resultSet.getString("EMAIL");
+                String senha = resultSet.getString("SENHA");
+
+                usuarios.add(new Usuario(id, nome, email, senha));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return usuarios;
     }
+
 }

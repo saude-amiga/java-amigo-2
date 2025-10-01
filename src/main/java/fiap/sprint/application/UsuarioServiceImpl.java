@@ -31,7 +31,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public ArrayList<Usuario> listarUsuarios() {
-        return null;
+        return (ArrayList<Usuario>) usuarioRepository.listarUsuarios();
     }
 
     @Override

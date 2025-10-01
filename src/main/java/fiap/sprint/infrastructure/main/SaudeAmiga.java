@@ -38,6 +38,8 @@ public class SaudeAmiga implements QuarkusApplication {
     @Override
     public int run(String... args) {
         criarUsuario();
+        logar();
+
         return 0;
     }
     private void criarUsuario(){
@@ -47,6 +49,8 @@ public class SaudeAmiga implements QuarkusApplication {
             System.out.println("Erro ao criar usuario");
         }
     }
+
+
     private void logar() {
         boolean usuarioExiste = false;
         try {
