@@ -65,7 +65,7 @@ public class SaudeAmiga implements QuarkusApplication {
         // ================== Acesso ==================
         // Create
         try {
-            acessoController.createAcesso(paginaId);
+            acessoController.createAcesso(paginaId, usuarioatual.getUserId());
         } catch (AcessoException e) {
             System.err.println("Erro ao criar Acesso: " + e.getMessage());
         }
@@ -185,7 +185,7 @@ public class SaudeAmiga implements QuarkusApplication {
 
 
 
-        return 0;
+            return 0;
 
     }
 

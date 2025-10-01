@@ -18,13 +18,14 @@ public class JdbcAcessoRepository implements AcessoRepository {
 
     @Override
     public Acesso criarAcesso(Acesso acesso) {
-        String sql = "INSERT INTO Acesso (data_acesso, id_pagina) VALUES (?, ?)";
+        String sql = "INSERT INTO Acesso (data_acesso, id_pagina, id_usuario) VALUES (?, ?, ?)";
         try (
                 Connection connection = this.databaseConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql, new String[]{"ID"})
         ) {
             ps.setDate(1, new java.sql.Date(acesso.getDataAcesso().getTime()));
             ps.setInt(2, acesso.getIdPagina());
+            ps.setInt(3, acesso.getIdUsuario());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
@@ -45,16 +46,18 @@ public class JdbcAcessoRepository implements AcessoRepository {
         }
     }
 
+
     @Override
-    public Acesso editarAcesso(Acesso acesso, int idPagina) {
-        String sql = "UPDATE Acesso SET data_acesso = ?, id_pagina = ? WHERE id = ?";
+    public Acesso editarAcesso(Acesso acesso, int idPagina, int idUsuario) {
+        String sql = "UPDATE Acesso SET data_acesso = ?, id_pagina = ?, id_usuario=? WHERE id = ?";
         try (
                 Connection connection = this.databaseConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setDate(1, new java.sql.Date(acesso.getDataAcesso().getTime()));
             ps.setInt(2, idPagina);
-            ps.setInt(3, acesso.getId());
+            ps.setInt(3, idUsuario);
+            ps.setInt(4, acesso.getId());
 
             int rows = ps.executeUpdate();
             if (rows == 0) {
@@ -83,7 +86,7 @@ public class JdbcAcessoRepository implements AcessoRepository {
     @Override
     public ArrayList<Acesso> listarAcesso() {
         ArrayList<Acesso> acessos = new ArrayList<>();
-        String sql = "SELECT id, data_acesso, id_pagina FROM Acesso";
+        String sql = "SELECT id, data_acesso, id_pagina, id_usuario FROM Acesso";
         try (
                 Connection connection = this.databaseConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql);
@@ -93,8 +96,9 @@ public class JdbcAcessoRepository implements AcessoRepository {
                 int id = rs.getInt("id");
                 java.sql.Date dataAcesso = rs.getDate("data_acesso");
                 int idPagina = rs.getInt("id_pagina");
+                int idUsuario = rs.getInt("id_usuario");
 
-                acessos.add(new Acesso(id, new java.util.Date(dataAcesso.getTime()), idPagina));
+                acessos.add(new Acesso(id, new java.util.Date(dataAcesso.getTime()), idPagina, idUsuario));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar acessos", e);

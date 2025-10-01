@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface AcessoRepository {
     Acesso criarAcesso(Acesso acesso);
 
-    Acesso editarAcesso(Acesso acesso, int idPagina);
+    Acesso editarAcesso(Acesso acesso, int idPagina, int idUsuario);
 
     void deletarAcesso(int id);
 

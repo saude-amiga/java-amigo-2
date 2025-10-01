@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface AcessoController {
 
-    Acesso createAcesso(int paginaId);
+    Acesso createAcesso(int paginaId, int idUsuario);
 
     void deletarAcesso(int idAcesso);
 

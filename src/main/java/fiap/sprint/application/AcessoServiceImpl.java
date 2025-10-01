@@ -16,15 +16,16 @@ public class AcessoServiceImpl implements AcessoService {
     }
 
     @Override
-    public Acesso criarAcesso(int idPagina) {
+    public Acesso criarAcesso(int idPagina, int idUsuario) {
         Acesso acesso = new Acesso(new Date(), idPagina);
+        acesso.setIdUsuario(idUsuario);
         return acessoRepository.criarAcesso(acesso);
     }
 
     @Override
     public Acesso editarAcesso(int idPagina, Acesso acesso) {
-
-        return acessoRepository.editarAcesso(acesso, idPagina);
+        int idUsuario = acesso.getIdUsuario();
+        return acessoRepository.editarAcesso(acesso, idPagina, idUsuario);
     }
 
     @Override

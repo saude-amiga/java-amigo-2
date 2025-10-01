@@ -6,11 +6,21 @@ public class Acesso {
    private int id;
    private Date dataAcesso;
    private int idPagina;
+   private int idUsuario;
 
-   public Acesso(int id, Date dataAcesso, int idPagina) {
+   public Acesso(int id, Date dataAcesso, int idPagina, int idUsuario) {
       this.id = id;
       this.dataAcesso = dataAcesso;
       this.idPagina = idPagina;
+      this.idUsuario = idUsuario;
+   }
+
+   public int getIdUsuario() {
+      return idUsuario;
+   }
+
+   public void setIdUsuario(int idUsuario) {
+      this.idUsuario = idUsuario;
    }
 
    public Acesso(Date dataAcesso, int idPagina) {

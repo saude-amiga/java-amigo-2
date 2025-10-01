@@ -14,8 +14,8 @@ public class AcessoControllerImpl implements AcessoController {
     }
 
     @Override
-    public Acesso createAcesso(int paginaId) {
-        return acessoService.criarAcesso(paginaId);
+    public Acesso createAcesso(int paginaId, int idUsuario) {
+        return acessoService.criarAcesso(paginaId, idUsuario);
     }
 
     @Override
