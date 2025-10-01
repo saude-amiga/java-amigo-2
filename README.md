@@ -1,7 +1,3 @@
-Perfeito! Nesse caso, você **não precisa instalar Oracle local** nem criar schema, pois a aplicação vai usar um banco remoto já existente. Vou reescrever as instruções adaptadas para esse cenário:
-
----
-
 ## **1. Ferramentas Necessárias**
 
 1. **IntelliJ IDEA**
