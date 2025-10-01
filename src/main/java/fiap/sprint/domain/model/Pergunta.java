@@ -17,6 +17,15 @@ public class Pergunta{
         this.data = data;
     }
 
+    public Pergunta(int id, String titulo, String corpo, int autorPergunta, int autorResposta, Date data) {
+        this.id = id;
+        this.titulo = titulo;
+        this.corpo = corpo;
+        this.autorDaPergunta = autorPergunta;
+        this.autorDaReposta = autorResposta;
+        this.data = data;
+    }
+
     public int getId() {
         return id;
     }

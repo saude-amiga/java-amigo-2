@@ -12,8 +12,6 @@ public interface AgendamentoController {
 
     void deletarAgendamento(int id);
 
-    Agendamento editarAgendamento(int idAgendamento, Agendamento agendamento);
-
     ArrayList<Agendamento> listarAgendamento();
 
     void confirmarAgendamento(int idAgendamento, Date dataAgendamento);

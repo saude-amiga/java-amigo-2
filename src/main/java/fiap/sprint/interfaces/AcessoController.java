@@ -10,7 +10,7 @@ public interface AcessoController {
 
     void deletarAcesso(int idAcesso);
 
-    Acesso editarAcesso(int idAcesso, Acesso acesso);
+    Acesso atualizarAcesso(int idPagina, Acesso acesso);
 
     ArrayList<Acesso> listarAcessos();
 }

@@ -1,4 +1,15 @@
 package fiap.sprint.domain.repository;
 
+import fiap.sprint.domain.model.Pergunta;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 public interface PerguntaRepository {
+    ArrayList<Pergunta> listarPerguntas();
+    void deletarPergunta(int id);
+
+    Pergunta responderPergunta(int id, String resposta, int autor);
+
+    Pergunta criarPergunta(String titulo, int autor, Date data);
 }

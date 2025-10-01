@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class JdbcAgendamentoRepository implements AgendamentoRepository {
@@ -81,12 +82,12 @@ public class JdbcAgendamentoRepository implements AgendamentoRepository {
             connection.setAutoCommit(false);
 
             String sqlAgendamento = """
-                    INSERT INTO AGENDAMENTO (DATA, DESCRICAO, PACIENTE_ID)
+                    INSERT INTO AGENDAMENTO (DATA, DESCRICAO, PACIENTEID)
                     VALUES (?, ?, ?)
                     """;
 
-            preparedStatement = connection.prepareStatement(sqlAgendamento);
-            preparedStatement.setDate(1, (java.sql.Date) data);
+            preparedStatement = connection.prepareStatement(sqlAgendamento, new String[]{"ID"}  );
+            preparedStatement.setDate(1, new java.sql.Date(data.getTime()));
             preparedStatement.setString(2, conteudo);
             preparedStatement.setInt(3, pacienteId);
 
@@ -138,7 +139,7 @@ public class JdbcAgendamentoRepository implements AgendamentoRepository {
             connection = this.databaseConnection.getConnection();
 
             String sql = """
-                SELECT ID, DATA, DESCRICAO, PACIENTE_ID, CONFIRMADO
+                SELECT ID, DATA, DESCRICAO, PACIENTEID, CONFIRMADO
                 FROM AGENDAMENTO
                 WHERE ID = ?
                 """;
@@ -172,6 +173,74 @@ public class JdbcAgendamentoRepository implements AgendamentoRepository {
                 if (connection != null) connection.close();
             } catch (SQLException e) {
                 throw new AgendamentoException("Erro ao fechar a querie em agendamento");
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<Agendamento> listarAgendamentos() {
+        ArrayList<Agendamento> agendamentos = new ArrayList<>();
+        String sql = "SELECT ID, DATA, DESCRICAO, PACIENTEID, CONFIRMADO FROM Agendamento";
+
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                ResultSet resultSet = preparedStatement.executeQuery();
+        ) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                Date data = resultSet.getDate("DATA"); // java.sql.Date
+                String descricao = resultSet.getString("DESCRICAO");
+                int pacienteId = resultSet.getInt("PACIENTEID");
+                String confirmado = resultSet.getString("CONFIRMADO");
+
+                boolean isConfirmado = "Y".equalsIgnoreCase(confirmado);
+
+                Agendamento agendamento = new Agendamento(id, data, descricao, pacienteId, isConfirmado);
+                agendamentos.add(agendamento);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar agendamentos", e);
+        }
+        return agendamentos;
+    }
+
+    @Override
+    public void deletarAgendamento(int idAgendamento) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            connection.setAutoCommit(false);
+
+            String sql = "DELETE FROM AGENDAMENTO WHERE ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, idAgendamento);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                connection.rollback();
+                throw new InfraestruturaException("Nenhum agendamento encontrado com ID: " + idAgendamento);
+            }
+
+            connection.commit();
+        } catch (SQLException | InfraestruturaException e) {
+            throw new RuntimeException("Erro ao deletar agendamento", e);
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new AgendamentoException("Erro ao fechar a query em agendamento");
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new AgendamentoException("Erro ao fechar a conexão com a tabela de agendamento");
+                }
             }
         }
     }

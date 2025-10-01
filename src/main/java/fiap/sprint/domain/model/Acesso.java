@@ -13,6 +13,11 @@ public class Acesso {
       this.idPagina = idPagina;
    }
 
+   public Acesso(Date dataAcesso, int idPagina) {
+      this.dataAcesso = dataAcesso;
+      this.idPagina = idPagina;
+   }
+
    public int getId() {
       return id;
    }

@@ -26,11 +26,6 @@ public class AgendamentoControllerImpl implements AgendamentoController {
     }
 
     @Override
-    public Agendamento editarAgendamento(int idAgendamento, Agendamento agendamento) {
-        return agendamentoService.editarAgendamento(idAgendamento, agendamento);
-    }
-
-    @Override
     public ArrayList<Agendamento> listarAgendamento() {
         return agendamentoService.listarAgendamentos();
     }

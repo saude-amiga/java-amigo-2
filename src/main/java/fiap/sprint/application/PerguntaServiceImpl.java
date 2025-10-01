@@ -17,21 +17,21 @@ public class PerguntaServiceImpl implements PerguntaService {
 
     @Override
     public Pergunta criarPergunta(String titulo, int autor, Date data) {
-        return null;
+        return perguntaRepository.criarPergunta( titulo,  autor,  data);
     }
 
     @Override
     public Pergunta responderPergunta(int id, String resposta, int autor) {
-        return null;
+        return perguntaRepository.responderPergunta(id, resposta, autor);
     }
 
     @Override
     public void deletarPergunta(int id) {
-
+        perguntaRepository.deletarPergunta(id);
     }
 
     @Override
     public ArrayList<Pergunta> listarPerguntas() {
-        return null;
+        return perguntaRepository.listarPerguntas();
     }
 }

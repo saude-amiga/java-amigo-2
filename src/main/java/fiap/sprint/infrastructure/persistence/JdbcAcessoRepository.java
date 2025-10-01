@@ -1,10 +1,105 @@
 package fiap.sprint.infrastructure.persistence;
 
+import fiap.sprint.domain.model.Acesso;
 import fiap.sprint.domain.repository.AcessoRepository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class JdbcAcessoRepository implements AcessoRepository {
     private final DatabaseConnection databaseConnection;
+
     public JdbcAcessoRepository(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
+
+    @Override
+    public Acesso criarAcesso(Acesso acesso) {
+        String sql = "INSERT INTO Acesso (data_acesso, id_pagina) VALUES (?, ?)";
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql, new String[]{"ID"})
+        ) {
+            ps.setDate(1, new java.sql.Date(acesso.getDataAcesso().getTime()));
+            ps.setInt(2, acesso.getIdPagina());
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating acesso failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    acesso.setId(id);
+                } else {
+                    throw new SQLException("Creating acesso failed, no ID obtained.");
+                }
+            }
+            return acesso;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao criar acesso", e);
+        }
+    }
+
+    @Override
+    public Acesso editarAcesso(Acesso acesso, int idPagina) {
+        String sql = "UPDATE Acesso SET data_acesso = ?, id_pagina = ? WHERE id = ?";
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setDate(1, new java.sql.Date(acesso.getDataAcesso().getTime()));
+            ps.setInt(2, idPagina);
+            ps.setInt(3, acesso.getId());
+
+            int rows = ps.executeUpdate();
+            if (rows == 0) {
+                throw new SQLException("No acesso found with id: " + acesso.getId());
+            }
+            return acesso;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao editar acesso", e);
+        }
+    }
+
+    @Override
+    public void deletarAcesso(int id) {
+        String sql = "DELETE FROM Acesso WHERE id = ?";
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar acesso", e);
+        }
+    }
+
+    @Override
+    public ArrayList<Acesso> listarAcesso() {
+        ArrayList<Acesso> acessos = new ArrayList<>();
+        String sql = "SELECT id, data_acesso, id_pagina FROM Acesso";
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                java.sql.Date dataAcesso = rs.getDate("data_acesso");
+                int idPagina = rs.getInt("id_pagina");
+
+                acessos.add(new Acesso(id, new java.util.Date(dataAcesso.getTime()), idPagina));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar acessos", e);
+        }
+        return acessos;
+    }
 }
+

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface AcessoService {
     Acesso criarAcesso(int idPagina);
-    Acesso editarAcesso(int idAcesso,  Acesso acesso);
+    Acesso editarAcesso(int idPagina, Acesso acesso);
     void deletarAcesso(int idAcesso);
     ArrayList<Acesso> listarAcessos();
 }

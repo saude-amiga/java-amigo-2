@@ -1,17 +1,17 @@
 package fiap.sprint.infrastructure.main;
 
+import fiap.sprint.domain.model.Acesso;
 import fiap.sprint.domain.model.Agendamento;
+import fiap.sprint.domain.model.Pergunta;
 import fiap.sprint.domain.model.Usuario;
-import fiap.sprint.infrastructure.exceptions.AgendamentoException;
-import fiap.sprint.infrastructure.exceptions.ListagemDeUsuarioException;
-import fiap.sprint.infrastructure.exceptions.LoginException;
+import fiap.sprint.infrastructure.exceptions.*;
 import fiap.sprint.interfaces.AcessoController;
 import fiap.sprint.interfaces.AgendamentoController;
 import fiap.sprint.interfaces.PerguntaController;
 import fiap.sprint.interfaces.UsuarioController;
 import io.quarkus.runtime.QuarkusApplication;
 import jakarta.inject.Inject;
-
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,75 +28,180 @@ public class SaudeAmiga implements QuarkusApplication {
 
     @Inject
     PerguntaController perguntaController;
+    private String descricao() {
+        return "DESCRICAO_" + UUID.randomUUID();
+    }
 
-    private String DESCRICAO = "DESasdadfasffasfCRICAO";
-    private String NOME = "Nome Teadasdfasffafste Teste";
-    private String EMAIL = "testasdfadfasfdasfatestee@gmail.com";
-    private String SENHA = "senhasdfdasdffadfasfa123";
+    private String nome() {
+        return "Nome Teste " + UUID.randomUUID();
+    }
+
+    private String email() {
+        return "user_" + UUID.randomUUID() + "@gmail.com";
+    }
+
+    private String senha() {
+        return "senha_" + UUID.randomUUID();
+    }
+    private String DESCRICAO = descricao();
+    private String NOME = nome();
+    private String EMAIL =  email();
+    private String SENHA = senha();
+    private int paginaId = 123;
     private Usuario usuarioatual = null;
 
     @Override
-    public int run(String... args) {
+    public int run(String... args) throws Exception {
 
         //funções principais do aplicativo
         criarUsuario();
         logar();
-        marcarConsulta();
-        confirmarConsulta();
+        criarAgendamentoDeConsultaAdmin();
+        agendamentoDeConsultaPaciente();
         visualizarHistoricoDeAcessos();
 
         //funções de alteração geral (CRUD) dos modelos
-        //Acesso
-            //Create
-                acessoController.createAcesso();
-            //Read
-                acessoController.listarAcessos();
-            //Update
-                acessoController.editarAcesso();
-            //Delete
-                acessoController.deletarAcesso();
+
+        // ================== Acesso ==================
+        // Create
+        try {
+            acessoController.createAcesso(paginaId);
+        } catch (AcessoException e) {
+            System.err.println("Erro ao criar Acesso: " + e.getMessage());
+        }
+
+        // Read
+        ArrayList<Acesso> listarAcessos = null;
+        try {
+            listarAcessos = acessoController.listarAcessos();
+        } catch (AcessoException e) {
+            System.err.println("Erro ao listar Acessos: " + e.getMessage());
+        }
+
+        // Update
+        try {
+            if (listarAcessos != null && !listarAcessos.isEmpty()) {
+                acessoController.atualizarAcesso(123, listarAcessos.get(0));
+            }
+        } catch (AcessoException e) {
+            System.err.println("Erro ao atualizar Acesso: " + e.getMessage());
+        }
+
+        // Delete
+        try {
+            if (listarAcessos != null && !listarAcessos.isEmpty()) {
+                acessoController.deletarAcesso(listarAcessos.get(0).getId());
+            }
+        } catch (AcessoException e) {
+            System.err.println("Erro ao deletar Acesso: " + e.getMessage());
+        }
 
 
-        //Agendamento
-            //Create
-                agendamentoController.createAgendamento();
-            //Read
-                agendamentoController.listarAgendamento();
-            //Update
-                agendamentoController.editarAgendamento();
-            //Delete
-                agendamentoController.deletarAgendamento();
+
+        // ================== Agendamento ==================
+        // Read
+        ArrayList<Agendamento> listarAgendamento = null;
+        try {
+            listarAgendamento = agendamentoController.listarAgendamento();
+        } catch (AgendamentoException e) {
+            System.err.println("Erro ao listar Agendamentos: " + e.getMessage());
+        }
+
+        // Delete
+        try {
+            if (listarAgendamento != null && !listarAgendamento.isEmpty()) {
+                agendamentoController.deletarAgendamento(listarAgendamento.get(0).getId());
+            }
+        } catch (AgendamentoException e) {
+            System.err.println("Erro ao deletar Agendamento: " + e.getMessage());
+        }
 
 
-        //Pergunta
-            //Create
-                perguntaController.criarPergunta();
-            //Read
-                perguntaController.listarPerguntas();
-            //Update
-                perguntaController.responderPergunta();
-            //Delete
-                perguntaController.deletarPergunta();
+
+        // ================== Pergunta ==================
+        // Create
+        try {
+            perguntaController.criarPergunta("Como abrir a tela de chamada", usuarioatual.getUserId(), new Date());
+        } catch (PerguntaException e) {
+            System.err.println("Erro ao criar Pergunta: " + e.getMessage());
+        }
+
+        // Read
+        ArrayList<Pergunta> perguntas = null;
+        try {
+            perguntas = perguntaController.listarPerguntas();
+        } catch (PerguntaException e) {
+            System.err.println("Erro ao listar Perguntas: " + e.getMessage());
+        }
+
+        // Update
+        try {
+            if (perguntas != null && !perguntas.isEmpty()) {
+                perguntaController.responderPergunta(
+                        perguntas.get(0).getId(),
+                        "Instruções para abrir a aplicação.",
+                        usuarioatual.getUserId()
+                );
+            }
+        } catch (PerguntaException e) {
+            System.err.println("Erro ao responder Pergunta: " + e.getMessage());
+        }
+
+        // Delete
+        try {
+            if (perguntas != null && !perguntas.isEmpty()) {
+                perguntaController.deletarPergunta(perguntas.get(0).getId());
+            }
+        } catch (PerguntaException e) {
+            System.err.println("Erro ao deletar Pergunta: " + e.getMessage());
+        }
 
 
-        //Usuario
-            //Create
-                usuarioController.criarUsuario();
-            //Read
-                usuarioController.listarUsuarios();
-            //Update
-                usuarioController.alterarEmail(EMAIL);
-            //Delete
-                usuarioController.deletarUsuario();
+
+        // ================== Usuario ==================
+        // Read
+        ArrayList<Usuario> listarUsuarios = null;
+        try {
+            listarUsuarios = usuarioController.listarUsuarios();
+        } catch (ListagemDeUsuarioException e) {
+            System.err.println("Erro ao listar Usuários: " + e.getMessage());
+        }
+
+        // Update
+        try {
+            usuarioController.alterarEmail(EMAIL + ".emailmudaddo.br");
+        } catch (LoginException e) {
+            System.err.println("Erro ao alterar e-mail do Usuário: " + e.getMessage());
+        }
+
+        // Delete
+        try {
+            if (listarUsuarios != null && !listarUsuarios.isEmpty()) {
+                usuarioController.deletarUsuario(listarUsuarios.get(0).getUserId());
+            }
+        } catch (ListagemDeUsuarioException e) {
+            System.err.println("Erro ao deletar Usuário: " + e.getMessage());
+        }
+
 
 
         return 0;
+
     }
-    private void criarUsuario(){
+
+        private void visualizarHistoricoDeAcessos() {
+        try{
+
+        }catch(AcessoException e){
+            throw new AcessoException(e.getMessage());
+        }
+    }
+
+    private void criarUsuario() throws Exception {
         try {
             usuarioController.criarUsuario(NOME, EMAIL, SENHA);
         }catch (Exception e){
-            System.out.println("Erro ao criar usuario");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -126,7 +231,8 @@ public class SaudeAmiga implements QuarkusApplication {
 
     private void agendamentoDeConsultaPaciente() {
         try {
-            agendamentoController.confirmarAgendamento(2, new Date());
+            int agendamentoId = agendamentoController.listarAgendamento().get(0).getId();
+            agendamentoController.confirmarAgendamento(agendamentoId, new Date());
         }catch(AgendamentoException e){
             throw new AgendamentoException("Erro na confirmação do agendamento");
         }
@@ -134,7 +240,7 @@ public class SaudeAmiga implements QuarkusApplication {
 
     private void criarAgendamentoDeConsultaAdmin(){
         try {
-            agendamentoController.createAgendamento(DESCRICAO, 1);
+            agendamentoController.createAgendamento(DESCRICAO, usuarioatual.getUserId());
         }catch (AgendamentoException e){
             throw new AgendamentoException("Erro na criação do agendamento");
         }

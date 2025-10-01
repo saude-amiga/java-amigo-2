@@ -5,6 +5,7 @@ import fiap.sprint.domain.repository.AcessoRepository;
 import fiap.sprint.domain.service.AcessoService;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AcessoServiceImpl implements AcessoService {
 
@@ -16,21 +17,23 @@ public class AcessoServiceImpl implements AcessoService {
 
     @Override
     public Acesso criarAcesso(int idPagina) {
-        return null;
+        Acesso acesso = new Acesso(new Date(), idPagina);
+        return acessoRepository.criarAcesso(acesso);
     }
 
     @Override
-    public Acesso editarAcesso(int idAcesso, Acesso acesso) {
-        return null;
+    public Acesso editarAcesso(int idPagina, Acesso acesso) {
+
+        return acessoRepository.editarAcesso(acesso, idPagina);
     }
 
     @Override
     public void deletarAcesso(int idAcesso) {
-
+        acessoRepository.deletarAcesso(idAcesso);
     }
 
     @Override
     public ArrayList<Acesso> listarAcessos() {
-        return null;
+        return acessoRepository.listarAcesso();
     }
 }
