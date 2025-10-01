@@ -15,8 +15,9 @@ public class AgendamentoControllerImpl implements AgendamentoController {
     }
 
     @Override
-    public Agendamento createAgendamento(String descricao) {
-        return agendamentoService.criarAgendamento(descricao);
+    public Agendamento createAgendamento(String descricao, int pacienteId) {
+
+        return agendamentoService.criarAgendamento(descricao, pacienteId );
     }
 
     @Override

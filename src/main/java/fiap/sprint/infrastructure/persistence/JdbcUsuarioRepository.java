@@ -5,13 +5,12 @@ import fiap.sprint.domain.repository.UsuarioRepository;
 import fiap.sprint.infrastructure.exceptions.InfraestruturaException;
 import oracle.jdbc.proxy.annotation.Pre;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
 import java.util.List;
 
 public class JdbcUsuarioRepository implements UsuarioRepository {
+    private final String tableNome = "USUARIOSAUDE";
     private final DatabaseConnection databaseConnection;
 
     public JdbcUsuarioRepository(DatabaseConnection databaseConnection) {
@@ -27,12 +26,8 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
             connection = this.databaseConnection.getConnection();
             connection.setAutoCommit(false);
 
-            String sqlUsuario = """
-                    INSERT INTO USUARIO (NOME, EMAIL, SENHA)
-                    VALUES (?, ?, ?)
-                    """;
-
-            preparedStatement = connection.prepareStatement(sqlUsuario);
+            String sqlUsuario = "INSERT INTO "+tableNome+" (NAME, EMAIL, SENHA) VALUES (?, ?, ?) ";
+            preparedStatement = connection.prepareStatement(sqlUsuario, new String[]{"ID"});
             preparedStatement.setString(1, nome);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, senha);
@@ -42,21 +37,17 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
                 connection.rollback();
                 throw new InfraestruturaException("Erro ao inserir novo usuário, nenhuma linha afetada");
             }
-
-            final Long usuarioId;
-
+            int usuarioId;
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    usuarioId = generatedKeys.getLong(1);
+                    usuarioId = generatedKeys.getBigDecimal(1).toBigInteger().intValue();
                 } else {
                     connection.rollback();
-                    throw new InfraestruturaException("Erro ao salvar contrato, nenhuma linha foi afetada");
+                    throw new InfraestruturaException("Erro ao salvar usuário, nenhum ID gerado");
                 }
-            } catch (InfraestruturaException e) {
-                throw new RuntimeException(e);
             }
             connection.commit();
-            return new Usuario(usuarioId.intValue(), nome, email, senha);
+            return new Usuario(usuarioId, nome, email, senha);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (InfraestruturaException e) {

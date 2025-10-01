@@ -8,12 +8,26 @@ public class Agendamento {
     private Date data;
     private String descricao;
     private int pacienteId;
-    
+    private boolean confirmado;
+
     public Agendamento(int id, String descricao, Date data, int pacienteId) {
             this.id = id;
             this.data = data;
             this.descricao = descricao;
             this.pacienteId = pacienteId;
+            this.confirmado = false;
+    }
+
+    public Agendamento() {
+
+    }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
     }
 
     public int getId() {

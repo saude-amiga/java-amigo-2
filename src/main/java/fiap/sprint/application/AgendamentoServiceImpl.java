@@ -16,13 +16,19 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     }
 
     @Override
+    public Agendamento getAgendamento(int id) {
+        Agendamento agendamento = agendamentoRepository.getAgendamento(id);
+        return agendamento;
+    }
+
+    @Override
     public Agendamento editarAgendamento(int idAgendamento, Agendamento agendamento) {
         return null;
     }
 
     @Override
-    public Agendamento criarAgendamento(String descricao) {
-        agendamentoRepository.criarAgendamento(descricao);
+    public Agendamento criarAgendamento(String descricao, int pacienteId) {
+        return agendamentoRepository.criarAgendamento(new Date(), descricao, pacienteId);
     }
 
     @Override
@@ -37,6 +43,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
     @Override
     public void confirmarAgendamento(int idAgendamento, Date data) {
+
         agendamentoRepository.confirmarAgendamento(idAgendamento, data);
     }
 }

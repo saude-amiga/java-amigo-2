@@ -35,7 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    boolean loginExiste(String email, String senha){
+    public boolean loginExiste(String email, String senha){
         ArrayList<Usuario> listaUsuario = this.listarUsuarios();
         for(Usuario usuario: listaUsuario){
             if(usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)){

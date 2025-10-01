@@ -2,6 +2,7 @@ package fiap.sprint.infrastructure.main;
 
 import fiap.sprint.domain.model.Agendamento;
 import fiap.sprint.domain.model.Usuario;
+import fiap.sprint.infrastructure.exceptions.AgendamentoException;
 import fiap.sprint.infrastructure.exceptions.ListagemDeUsuarioException;
 import fiap.sprint.infrastructure.exceptions.LoginException;
 import fiap.sprint.interfaces.AcessoController;
@@ -28,10 +29,10 @@ public class SaudeAmiga implements QuarkusApplication {
     @Inject
     PerguntaController perguntaController;
 
-    private String DESCRICAO = "DESCRICAO";
-    private String NOME = "NomeTeste";
-    private String EMAIL = "teste@gmail.com";
-    private String SENHA = "senha123";
+    private String DESCRICAO = "DESasdadfasffasfCRICAO";
+    private String NOME = "Nome Teadasdfasffafste Teste";
+    private String EMAIL = "testasdfadfasfdasfatestee@gmail.com";
+    private String SENHA = "senhasdfdasdffadfasfa123";
     private Usuario usuarioatual = null;
 
     @Override
@@ -70,10 +71,18 @@ public class SaudeAmiga implements QuarkusApplication {
     }
 
     private void agendamentoDeConsultaPaciente() {
-        agendamentoController.confirmarAgendamento(2, new Date());
+        try {
+            agendamentoController.confirmarAgendamento(2, new Date());
+        }catch(AgendamentoException e){
+            throw new AgendamentoException("Erro na confirmação do agendamento");
+        }
     }
 
     private void criarAgendamentoDeConsultaAdmin(){
-        agendamentoController.createAgendamento(DESCRICAO);
+        try {
+            agendamentoController.createAgendamento(DESCRICAO, 1);
+        }catch (AgendamentoException e){
+            throw new AgendamentoException("Erro na criação do agendamento");
+        }
     }
 }

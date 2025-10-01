@@ -8,7 +8,7 @@ import java.util.Date;
 
 public interface AgendamentoController {
 
-    Agendamento createAgendamento(String descricao);
+    Agendamento createAgendamento(String descricao, int pacienteId);
 
     void deletarAgendamento(int id);
 
