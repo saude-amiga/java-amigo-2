@@ -22,7 +22,6 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     public Usuario criarUsuario(String nome, String email, String senha) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        PreparedStatement preparedStatement1 = null;
 
         try{
             connection = this.databaseConnection.getConnection();

@@ -4,6 +4,7 @@ import fiap.sprint.domain.model.Agendamento;
 import fiap.sprint.domain.service.AgendamentoService;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AgendamentoControllerImpl implements AgendamentoController {
 
@@ -31,5 +32,10 @@ public class AgendamentoControllerImpl implements AgendamentoController {
     @Override
     public ArrayList<Agendamento> listarAgendamento() {
         return agendamentoService.listarAgendamentos();
+    }
+
+    @Override
+    public void confirmarAgendamento(int idAgendamento, Date dataAgendamento) {
+        agendamentoService.confirmarAgendamento(idAgendamento, dataAgendamento);
     }
 }

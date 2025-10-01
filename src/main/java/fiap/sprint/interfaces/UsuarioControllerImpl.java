@@ -35,6 +35,6 @@ public class UsuarioControllerImpl implements UsuarioController {
 
     @Override
     public boolean loginExiste(String email, String senha) {
-        return usuarioService.loginExiste(String email, String senha);
+        return usuarioService.loginExiste(email, senha);
     }
 }

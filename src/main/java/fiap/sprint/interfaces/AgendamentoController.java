@@ -4,6 +4,7 @@ import fiap.sprint.domain.model.Acesso;
 import fiap.sprint.domain.model.Agendamento;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface AgendamentoController {
 
@@ -14,4 +15,6 @@ public interface AgendamentoController {
     Agendamento editarAgendamento(int idAgendamento, Agendamento agendamento);
 
     ArrayList<Agendamento> listarAgendamento();
+
+    void confirmarAgendamento(int idAgendamento, Date dataAgendamento);
 }

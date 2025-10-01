@@ -5,6 +5,7 @@ import fiap.sprint.domain.repository.AgendamentoRepository;
 import fiap.sprint.domain.service.AgendamentoService;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AgendamentoServiceImpl implements AgendamentoService {
 
@@ -21,7 +22,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
     @Override
     public Agendamento criarAgendamento(String descricao) {
-        return null;
+        agendamentoRepository.criarAgendamento(descricao);
     }
 
     @Override
@@ -32,5 +33,10 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     @Override
     public void deletarAgendamento(int idAgendamento) {
 
+    }
+
+    @Override
+    public void confirmarAgendamento(int idAgendamento, Date data) {
+        agendamentoRepository.confirmarAgendamento(idAgendamento, data);
     }
 }
