@@ -20,13 +20,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return null;
+    public void alterarNome(int id, String nome) {
+
+        usuarioRepository.alterarNome(id, nome);
     }
 
     @Override
-    public Usuario alterarEmail(String email) {
-        return null;
+    public void alterarEmail(int id, String email) {
+        usuarioRepository.alterarEmail(id, email);
+    }
+
+    @Override
+    public void alterarSenha(int id, String senha){
+        usuarioRepository.alterarSenha(id, senha);
     }
 
     @Override

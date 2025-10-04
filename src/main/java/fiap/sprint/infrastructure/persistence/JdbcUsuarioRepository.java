@@ -57,7 +57,7 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
-    public Usuario alterarSenha(int id, String senha) {
+    public void alterarSenha(int id, String senha) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
@@ -78,9 +78,6 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
 
         connection.commit();
 
-        // Return the updated user (you may want to fetch other fields)
-        return buscarUsuarioPorId(id);
-
     } catch (SQLException | InfraestruturaException e) {
         throw new RuntimeException(e);
     } finally {
@@ -94,7 +91,7 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
-    public Usuario alterarEmail(int id, String email) {
+    public void alterarEmail(int id, String email) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -115,8 +112,6 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
 
             connection.commit();
 
-            return buscarUsuarioPorId(id);
-
         } catch (SQLException | InfraestruturaException e) {
             throw new RuntimeException(e);
         } finally {
@@ -130,7 +125,7 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
-    public Usuario alterarNome(int id, String nome) {
+    public void alterarNome(int id, String nome) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -150,8 +145,6 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
             }
 
             connection.commit();
-
-            return buscarUsuarioPorId(id);
 
         } catch (SQLException | InfraestruturaException e) {
             throw new RuntimeException(e);

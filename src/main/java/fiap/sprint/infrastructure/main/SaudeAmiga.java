@@ -169,9 +169,21 @@ public class SaudeAmiga implements QuarkusApplication {
 
         // Update
         try {
-            usuarioController.alterarEmail(EMAIL + ".emailmudaddo.br");
+            usuarioController.alterarEmail( usuarioatual.getUserId(), EMAIL + ".emailmudaddo.br");
         } catch (LoginException e) {
             System.err.println("Erro ao alterar e-mail do Usuário: " + e.getMessage());
+        }
+
+        try {
+            usuarioController.alterarSenha( usuarioatual.getUserId(), SENHA + ".SENHAMUDADA");
+        } catch (LoginException e) {
+            System.err.println("Erro ao alterar senha do Usuário: " + e.getMessage());
+        }
+
+        try {
+            usuarioController.alterarNome( usuarioatual.getUserId(), NOME + "NOMEMUDADO DA SILVA");
+        } catch (LoginException e) {
+            System.err.println("Erro ao alterar nome do Usuário: " + e.getMessage());
         }
 
         // Delete

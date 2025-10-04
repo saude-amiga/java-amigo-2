@@ -19,13 +19,18 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return usuarioService.alterarNome(nome);
+    public void alterarNome(int id, String nome) {
+        usuarioService.alterarNome(id, nome);
     }
 
     @Override
-    public Usuario alterarEmail(String email) {
-        return usuarioService.alterarEmail(email);
+    public void alterarEmail(int id, String email) {
+        usuarioService.alterarEmail(id, email);
+    }
+
+    @Override
+    public void alterarSenha(int id, String senha) {
+        usuarioService.alterarEmail(id, senha);
     }
 
     @Override
