@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UsuarioRepository {
     Usuario criarUsuario(String nome, String email, String senha );
-    Usuario alterarSenha(String senha);
-    Usuario alterarEmail(String email);
-    Usuario alterarNome(String nome);
+    Usuario alterarSenha(int id,String senha);
+    Usuario alterarEmail(int id,String email);
+    Usuario alterarNome(int id,String nome);
     void deletarUsuario(int id);
     List<Usuario> listarUsuarios();
 
