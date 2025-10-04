@@ -57,23 +57,145 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
-    public Usuario alterarSenha(String senha) {
-        return null;
+    public Usuario alterarSenha(int id, String senha) {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        connection = this.databaseConnection.getConnection();
+        connection.setAutoCommit(false);
+
+        String sql = "UPDATE " + tableNome + " SET SENHA = ? WHERE ID = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, senha);
+        preparedStatement.setInt(2, id);
+
+        int affectedRows = preparedStatement.executeUpdate();
+        if (affectedRows == 0) {
+            connection.rollback();
+            throw new InfraestruturaException("Erro ao atualizar senha, nenhum usuário encontrado com o ID: " + id);
+        }
+
+        connection.commit();
+
+        // Return the updated user (you may want to fetch other fields)
+        return buscarUsuarioPorId(id);
+
+    } catch (SQLException | InfraestruturaException e) {
+        throw new RuntimeException(e);
+    } finally {
+        try {
+            if (preparedStatement != null) preparedStatement.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     }
 
     @Override
-    public Usuario alterarEmail(String email) {
-        return null;
+    public Usuario alterarEmail(int id, String email) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            connection.setAutoCommit(false);
+
+            String sql = "UPDATE " + tableNome + " SET EMAIL = ? WHERE ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setInt(2, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                connection.rollback();
+                throw new InfraestruturaException("Erro ao atualizar email, nenhum usuário encontrado com o ID: " + id);
+            }
+
+            connection.commit();
+
+            return buscarUsuarioPorId(id);
+
+        } catch (SQLException | InfraestruturaException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return null;
+    public Usuario alterarNome(int id, String nome) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            connection.setAutoCommit(false);
+
+            String sql = "UPDATE " + tableNome + " SET NAME = ? WHERE ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            preparedStatement.setInt(2, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                connection.rollback();
+                throw new InfraestruturaException("Erro ao atualizar nome, nenhum usuário encontrado com o ID: " + id);
+            }
+
+            connection.commit();
+
+            return buscarUsuarioPorId(id);
+
+        } catch (SQLException | InfraestruturaException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void deletarUsuario(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+    try {
+        connection = this.databaseConnection.getConnection();
+        connection.setAutoCommit(false);
+
+        String sql = "DELETE FROM " + tableNome + " WHERE ID = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+
+        int affectedRows = preparedStatement.executeUpdate();
+        if (affectedRows == 0) {
+            connection.rollback();
+            throw new InfraestruturaException("Erro ao deletar usuário, nenhum usuário encontrado com o ID: " + id);
+        }
+
+        connection.commit();
+
+    } catch (SQLException | InfraestruturaException e) {
+        throw new RuntimeException(e);
+    } finally {
+        try {
+            if (preparedStatement != null) preparedStatement.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     }
 
     @Override
