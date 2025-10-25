@@ -12,4 +12,6 @@ public interface AcessoRepository {
     void deletarAcesso(int id);
 
     ArrayList<Acesso> listarAcesso();
+
+    ArrayList<Acesso> listarByIdUsuario(int idUsuario);
 }

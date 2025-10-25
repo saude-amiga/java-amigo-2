@@ -105,5 +105,31 @@ public class JdbcAcessoRepository implements AcessoRepository {
         }
         return acessos;
     }
+
+    @Override
+    public ArrayList<Acesso> listarByIdUsuario(int idUsuario) {
+        ArrayList<Acesso> acessos = new ArrayList<>();
+        String sql = "SELECT id, data_acesso, id_pagina, id_usuario FROM Acesso WHERE id_usuario = ?";
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    java.sql.Date dataAcesso = rs.getDate("data_acesso");
+                    int idPagina = rs.getInt("id_pagina");
+                    int idUsuarioResult = rs.getInt("id_usuario");
+
+                    acessos.add(new Acesso(id, new java.util.Date(dataAcesso.getTime()), idPagina, idUsuarioResult));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar acessos por id_usuario", e);
+        }
+        return acessos;
+    }
+
 }
 
