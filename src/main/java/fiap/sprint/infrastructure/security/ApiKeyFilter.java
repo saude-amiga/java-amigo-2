@@ -14,7 +14,7 @@ import java.io.IOException;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class ApiKeyFilter implements ContainerRequestFilter {
-    private static final String API_KEY_HEADER = "x-saude-amiga-key";
+    private static final String API_KEY_HEADER = "X-api-key";
 
     private final ApiKeyValidator apiKeyValidator;
 
