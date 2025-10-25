@@ -140,7 +140,8 @@ public class SaudeAmiga implements QuarkusApplication {
                 perguntaController.responderPergunta(
                         perguntas.get(0).getId(),
                         "Instruções para abrir a aplicação.",
-                        usuarioatual.getUserId()
+                        usuarioatual.getUserId(),
+                        usuarioatual.isFuncionario()
                 );
             }
         } catch (PerguntaException e) {

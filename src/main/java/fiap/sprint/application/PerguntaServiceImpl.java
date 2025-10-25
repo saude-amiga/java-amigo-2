@@ -3,6 +3,7 @@ package fiap.sprint.application;
 import fiap.sprint.domain.model.Pergunta;
 import fiap.sprint.domain.repository.PerguntaRepository;
 import fiap.sprint.domain.service.PerguntaService;
+import fiap.sprint.infrastructure.exceptions.PerguntaException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +22,10 @@ public class PerguntaServiceImpl implements PerguntaService {
     }
 
     @Override
-    public Pergunta responderPergunta(int id, String resposta, int autor) {
+    public Pergunta responderPergunta(int id, String resposta, int autor, boolean isFuncionario) {
+        if(isFuncionario) {
+            throw new PerguntaException("Usuário sem permissão de envio de resposta");
+        }
         return perguntaRepository.responderPergunta(id, resposta, autor);
     }
 
