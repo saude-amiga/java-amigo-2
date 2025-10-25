@@ -23,7 +23,7 @@ public class AcessoInputDto {
       this.idUsuario = idUsuario;
    }
 
-   public Acesso(Date dataAcesso, int idPagina) {
+   public AcessoInputDto(Date dataAcesso, int idPagina) {
       this.dataAcesso = dataAcesso;
       this.idPagina = idPagina;
    }
