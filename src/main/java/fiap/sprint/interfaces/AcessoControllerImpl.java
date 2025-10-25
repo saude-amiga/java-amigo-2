@@ -32,4 +32,9 @@ public class AcessoControllerImpl implements AcessoController {
     public ArrayList<Acesso> listarAcessos() {
         return acessoService.listarAcessos();
     }
+
+    @Override
+    public ArrayList<Acesso> listarAcessosPorUsuario(int userId) {
+        return acessoService.listarAcessosPorUsuario(userId);
+    }
 }

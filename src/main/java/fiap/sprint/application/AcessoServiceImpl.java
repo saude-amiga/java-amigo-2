@@ -37,4 +37,9 @@ public class AcessoServiceImpl implements AcessoService {
     public ArrayList<Acesso> listarAcessos() {
         return acessoRepository.listarAcesso();
     }
+
+    @Override
+    public ArrayList<Acesso> listarAcessosPorUsuario(int userId){
+        return acessoRepository.listarByIdUsuario(userId);
+    }
 }
