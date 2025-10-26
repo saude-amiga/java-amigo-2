@@ -19,15 +19,6 @@ public class AcessoInputDto {
       return idUsuario;
    }
 
-   public void setIdUsuario(int idUsuario) {
-      this.idUsuario = idUsuario;
-   }
-
-   public AcessoInputDto(Date dataAcesso, int idPagina) {
-      this.dataAcesso = dataAcesso;
-      this.idPagina = idPagina;
-   }
-
    public int getId() {
       return id;
    }
@@ -40,15 +31,9 @@ public class AcessoInputDto {
       return dataAcesso;
    }
 
-   public void setDataAcesso(Date dataAcesso) {
-      this.dataAcesso = dataAcesso;
-   }
 
    public int getIdPagina() {
       return idPagina;
    }
-
-   public void setIdPagina(int idPagina) {
-      this.idPagina = idPagina;
-   }
+   
 }

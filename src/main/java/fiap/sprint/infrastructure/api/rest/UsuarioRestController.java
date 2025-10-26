@@ -8,7 +8,6 @@ import fiap.sprint.mapper.UsuarioMapper;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import oracle.jdbc.proxy.annotation.Post;
 
 import java.util.ArrayList;
 import java.util.List;
