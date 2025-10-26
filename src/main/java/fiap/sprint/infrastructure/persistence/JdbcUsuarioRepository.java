@@ -125,8 +125,28 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
 
     @Override
     public void deletarUsuario(int id) {
+        String sql = "DELETE FROM " + tableNome + " WHERE ID = ?";
+        try (Connection connection = this.databaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            connection.setAutoCommit(false);
+            preparedStatement.setInt(1, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                connection.rollback();
+                throw new InfraestruturaException("Nenhum usuário encontrado com o ID informado para exclusão.");
+            }
+
+            connection.commit();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar usuário: " + e.getMessage(), e);
+        } catch (InfraestruturaException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     @Override
     public List<Usuario> listarUsuarios() {
