@@ -46,4 +46,24 @@ public class Pergunta{
     private void setResposta(String resposta){
         this.corpo = resposta;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getCorpo() {
+        return corpo;
+    }
+
+    public int getAutorDaPergunta() {
+        return autorDaPergunta;
+    }
+
+    public int getAutorDaReposta() {
+        return autorDaReposta;
+    }
+
+    public Date getData() {
+        return data;
+    }
 }
