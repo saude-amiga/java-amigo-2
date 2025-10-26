@@ -35,7 +35,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public boolean loginExiste(String email, String senha){
+    public void deletarUsuario(int id) {
+        usuarioRepository.deletarUsuario(id);
+    }
+
+    @Override
+    public Usuario login(String email, String senha) {
+        if (loginExiste(email, senha)){
+            return usuarioRepository.getUsuarioByEmail(email);
+        }
+    }
+
+    private boolean loginExiste(String email, String senha){
         ArrayList<Usuario> listaUsuario = this.listarUsuarios();
         for(Usuario usuario: listaUsuario){
             if(usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)){
@@ -45,8 +56,4 @@ public class UsuarioServiceImpl implements UsuarioService {
         return false;
     }
 
-    @Override
-    public void deletarUsuario(int id) {
-        usuarioRepository.deletarUsuario(id);
-    }
 }

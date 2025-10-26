@@ -165,4 +165,42 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
         return usuarios;
     }
 
+    @Override
+    public Usuario getUsuarioByEmail(String email) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            String sql = "SELECT ID, NAME, EMAIL, SENHA FROM " + tableNome + " WHERE EMAIL = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nome = resultSet.getString("NAME");
+                String senha = resultSet.getString("SENHA");
+
+                return new Usuario(id, nome, email, senha);
+            } else {
+                throw new InfraestruturaException("Usuário não encontrado com o email informado: " + email);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar usuário por email: " + e.getMessage(), e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

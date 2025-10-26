@@ -13,4 +13,5 @@ public interface UsuarioRepository {
     void deletarUsuario(int id);
     List<Usuario> listarUsuarios();
 
+    Usuario getUsuarioByEmail(String email);
 }

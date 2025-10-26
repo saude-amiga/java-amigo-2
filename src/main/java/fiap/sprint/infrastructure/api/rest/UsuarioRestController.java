@@ -73,9 +73,10 @@ public class UsuarioRestController {
     }
 
     @POST
-    public Response validaLogin(UsuarioInputDto dto) {
+    @Path("/login")
+    public Response login(UsuarioInputDto dto) {
         try{
-            boolean usuarioSaida = usuarioController.loginExiste(dto.getEmail(), dto.getSenha());
+            Usuario usuarioSaida = usuarioController.login(dto.getEmail(), dto.getSenha());
             return Response.ok(usuarioSaida).build();
         }catch (RuntimeException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
