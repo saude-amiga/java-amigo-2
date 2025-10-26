@@ -1,10 +1,16 @@
 package fiap.sprint.infrastructure.api.rest;
 
+import fiap.sprint.domain.model.Usuario;
+import fiap.sprint.dto.input.UsuarioInputDto;
+import fiap.sprint.dto.output.UsuarioOutputDto;
 import fiap.sprint.interfaces.UsuarioController;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import fiap.sprint.mapper.UsuarioMapper;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/Usuario")
 @Produces(MediaType.APPLICATION_JSON)
@@ -15,4 +21,55 @@ public class UsuarioRestController {
     public UsuarioRestController(UsuarioController usuarioController){
         this.usuarioController = usuarioController;
     }
+
+    @POST
+    public Response create(UsuarioInputDto dto) {
+        try {
+            Usuario usuarioCriado = usuarioController.criarUsuario(dto.getName(), dto.getEmail(), dto.getSenha());
+            UsuarioOutputDto usuarioSaida = UsuarioMapper.toDto(usuarioCriado);
+            return Response.status(Response.Status.CREATED).entity(usuarioSaida).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id") int id, UsuarioInputDto dto) {
+        try {
+            Usuario usuario = UsuarioMapper.toModel(dto);
+            Usuario usuarioEditado = usuarioController.alterarNome(id, usuario.getName());
+            UsuarioOutputDto usuarioSaida = UsuarioMapper.toDto(usuarioEditado);
+            return Response.ok(usuarioSaida).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int id) {
+        try {
+            usuarioController.deletarUsuario(id);
+            return Response.noContent().build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    public Response listAll() {
+        try {
+            List<Usuario> usuarioList = usuarioController.listarUsuarios();
+            List<UsuarioOutputDto> usuarioSaida = new ArrayList<>();
+            for (Usuario usuario : usuarioList) {
+                usuarioSaida.add(UsuarioMapper.toDto(usuario));
+            }
+            return Response.ok(usuarioSaida).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+
+
 }
