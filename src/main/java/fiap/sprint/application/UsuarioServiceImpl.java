@@ -20,8 +20,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return null;
+    public Usuario alterarNome(int id, String nome) {
+        return usuarioRepository.alterarNome(id,nome);
     }
 
     @Override

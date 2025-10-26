@@ -19,8 +19,8 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return usuarioService.alterarNome(nome);
+    public Usuario alterarNome(int id, String nome) {
+        return usuarioService.alterarNome(id, nome);
     }
 
     @Override

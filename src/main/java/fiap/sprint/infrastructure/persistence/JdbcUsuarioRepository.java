@@ -3,9 +3,7 @@ package fiap.sprint.infrastructure.persistence;
 import fiap.sprint.domain.model.Usuario;
 import fiap.sprint.domain.repository.UsuarioRepository;
 import fiap.sprint.infrastructure.exceptions.InfraestruturaException;
-import oracle.jdbc.proxy.annotation.Pre;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +65,63 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return null;
+    public Usuario alterarNome(int id, String novoNome) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            connection.setAutoCommit(false);
+
+            String sql = "UPDATE " + tableNome + " SET NAME = ? WHERE ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, novoNome);
+            preparedStatement.setInt(2, id);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                connection.rollback();
+                throw new InfraestruturaException("Nenhum usuário encontrado com o ID informado para atualização de nome.");
+            }
+
+            connection.commit();
+
+            // Recupera o usuário atualizado
+            String selectSql = "SELECT ID, NAME, EMAIL, SENHA FROM " + tableNome + " WHERE ID = ?";
+            try (PreparedStatement selectStatement = connection.prepareStatement(selectSql)) {
+                selectStatement.setInt(1, id);
+                try (ResultSet resultSet = selectStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int usuarioId = resultSet.getInt("ID");
+                        String nome = resultSet.getString("NAME");
+                        String email = resultSet.getString("EMAIL");
+                        String senha = resultSet.getString("SENHA");
+                        return new Usuario(usuarioId, nome, email, senha);
+                    } else {
+                        throw new InfraestruturaException("Erro ao recuperar usuário após atualização de nome.");
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            try {
+                if (connection != null) connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            throw new RuntimeException("Erro ao alterar nome do usuário: " + e.getMessage(), e);
+        } catch (InfraestruturaException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
 
     @Override
     public void deletarUsuario(int id) {

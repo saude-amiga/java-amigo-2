@@ -8,7 +8,8 @@ public interface UsuarioRepository {
     Usuario criarUsuario(String nome, String email, String senha );
     Usuario alterarSenha(String senha);
     Usuario alterarEmail(String email);
-    Usuario alterarNome(String nome);
+    Usuario alterarNome(int id, String novoNome);
+
     void deletarUsuario(int id);
     List<Usuario> listarUsuarios();
 
