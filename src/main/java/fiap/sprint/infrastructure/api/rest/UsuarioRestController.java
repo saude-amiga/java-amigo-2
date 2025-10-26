@@ -78,7 +78,7 @@ public class UsuarioRestController {
             Usuario usuarioSaida = usuarioController.login(dto.getEmail(), dto.getSenha());
             return Response.ok(usuarioSaida).build();
         }catch (RuntimeException e){
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
 
