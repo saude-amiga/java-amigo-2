@@ -1,22 +1,12 @@
 package fiap.sprint.dto.input;
 
 public class RespostaInputDto {
-    private int id;
     private String corpo;
     private int autorDaReposta;
 
-    public RespostaInputDto(int idPergunta, int idAutor, String resposta) {
-        this.id = idPergunta;
+    public RespostaInputDto( int idAutor, String resposta) {
         this.corpo = resposta;
         this.autorDaReposta = idAutor;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCorpo() {
