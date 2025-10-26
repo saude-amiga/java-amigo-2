@@ -8,6 +8,7 @@ import fiap.sprint.mapper.UsuarioMapper;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import oracle.jdbc.proxy.annotation.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,5 +72,14 @@ public class UsuarioRestController {
         }
     }
 
+    @POST
+    public Response validaLogin(UsuarioInputDto dto) {
+        try{
+            boolean usuarioSaida = usuarioController.loginExiste(dto.getEmail(), dto.getSenha());
+            return Response.ok(usuarioSaida).build();
+        }catch (RuntimeException e){
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
 
 }
