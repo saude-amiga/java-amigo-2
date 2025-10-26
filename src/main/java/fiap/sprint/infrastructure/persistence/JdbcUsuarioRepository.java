@@ -191,6 +191,8 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar usuário por email: " + e.getMessage(), e);
+        } catch (InfraestruturaException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
