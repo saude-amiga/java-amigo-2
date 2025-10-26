@@ -6,9 +6,7 @@ public class PerguntaInputDto{
 
     private int id;
     private String titulo;
-    private String corpo;
     private int autorDaPergunta;
-    private int autorDaReposta;
     private Date data;
 
     public PerguntaInputDto(String titulo, int autor, Date data) {
@@ -17,12 +15,27 @@ public class PerguntaInputDto{
         this.data = data;
     }
 
-    public PerguntaInputDto(int id, String titulo, String corpo, int autorPergunta, int autorResposta, Date data) {
-        this.id = id;
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
-        this.corpo = corpo;
-        this.autorDaPergunta = autorPergunta;
-        this.autorDaReposta = autorResposta;
+    }
+
+    public int getAutorDaPergunta() {
+        return autorDaPergunta;
+    }
+
+    public void setAutorDaPergunta(int autorDaPergunta) {
+        this.autorDaPergunta = autorDaPergunta;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -32,18 +45,5 @@ public class PerguntaInputDto{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void responderPergunta(int idAutor, String resposta) {
-        setAutorDaReposta(idAutor);
-        setResposta(resposta);
-    }
-
-    private void setAutorDaReposta(int idAutor){
-        this.autorDaReposta = idAutor;
-    }
-
-    private void setResposta(String resposta){
-        this.corpo = resposta;
     }
 }
