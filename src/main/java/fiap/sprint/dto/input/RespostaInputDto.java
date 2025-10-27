@@ -2,11 +2,11 @@ package fiap.sprint.dto.input;
 
 public class RespostaInputDto {
     private String corpo;
-    private int autorDaReposta;
+    private int autorDaResposta;
 
-    public RespostaInputDto( int idAutor, String resposta) {
+    public RespostaInputDto(String resposta, int autorDaResposta) {
         this.corpo = resposta;
-        this.autorDaReposta = idAutor;
+        this.autorDaResposta = autorDaResposta;
     }
 
     public String getCorpo() {
@@ -18,10 +18,10 @@ public class RespostaInputDto {
     }
 
     public int getAutorDaReposta() {
-        return autorDaReposta;
+        return autorDaResposta;
     }
 
-    public void setAutorDaReposta(int autorDaReposta) {
-        this.autorDaReposta = autorDaReposta;
+    public void setAutorDaReposta(int autorDaResposta) {
+        this.autorDaResposta = autorDaResposta;
     }
 }
