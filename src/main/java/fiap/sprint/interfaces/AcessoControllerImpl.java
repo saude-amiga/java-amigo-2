@@ -24,8 +24,8 @@ public class AcessoControllerImpl implements AcessoController {
     }
 
     @Override
-    public Acesso atualizarAcesso(int idPagina, Acesso acesso) {
-        return acessoService.editarAcesso(idPagina, acesso);
+    public Acesso atualizarAcesso(int idAcesso, Acesso acesso) {
+        return acessoService.editarAcesso(idAcesso, acesso);
     }
 
     @Override

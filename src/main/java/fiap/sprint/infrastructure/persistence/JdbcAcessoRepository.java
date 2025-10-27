@@ -48,16 +48,16 @@ public class JdbcAcessoRepository implements AcessoRepository {
 
 
     @Override
-    public Acesso editarAcesso(Acesso acesso, int idPagina, int idUsuario) {
+    public Acesso editarAcesso(Acesso acesso, int idAcesso) {
         String sql = "UPDATE Acesso SET data_acesso = ?, id_pagina = ?, id_usuario=? WHERE id = ?";
         try (
                 Connection connection = this.databaseConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setDate(1, new java.sql.Date(acesso.getDataAcesso().getTime()));
-            ps.setInt(2, idPagina);
-            ps.setInt(3, idUsuario);
-            ps.setInt(4, acesso.getId());
+            ps.setInt(2, acesso.getIdPagina());
+            ps.setInt(3, acesso.getIdUsuario());
+            ps.setInt(4, idAcesso);
 
             int rows = ps.executeUpdate();
             if (rows == 0) {
