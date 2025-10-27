@@ -27,8 +27,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     }
 
     @Override
-    public Agendamento criarAgendamento(String descricao, int pacienteId) {
-        return agendamentoRepository.criarAgendamento(new Date(), descricao, pacienteId);
+    public Agendamento criarAgendamento(String descricao, int pacienteId, Date agendamento) {
+        return agendamentoRepository.criarAgendamento(agendamento, descricao, pacienteId);
     }
 
     @Override

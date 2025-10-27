@@ -25,7 +25,7 @@ public class AgendamentoRestController {
     @POST
     public Response create(AgendamentoInputDto dto) {
         try {
-            Agendamento agendamentoCriado = agendamentoController.createAgendamento(dto.getDescricao(), dto.getPacienteId());
+            Agendamento agendamentoCriado = agendamentoController.createAgendamento(dto.getDescricao(), dto.getPacienteId(), dto.getData());
             AgendamentoOutputDto agendamentoSaida = AgendamentoMapper.toDto(agendamentoCriado);
             return Response.status(Response.Status.CREATED).entity(agendamentoSaida).build();
         } catch (RuntimeException e) {
