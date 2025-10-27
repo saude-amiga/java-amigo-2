@@ -27,7 +27,8 @@ public class ServiceConfig {
     }
 
     @ApplicationScoped
-    public UsuarioService usuarioService(UsuarioRepository usuarioRepository) {
-        return new UsuarioServiceImpl(usuarioRepository);
+    public UsuarioService usuarioService(UsuarioRepository usuarioRepository, AgendamentoRepository agendamentoRepository,
+                                         PerguntaRepository perguntaRepository,  AcessoRepository acessoRepository) {
+        return new UsuarioServiceImpl(usuarioRepository,  perguntaRepository, agendamentoRepository, acessoRepository);
     }
 }

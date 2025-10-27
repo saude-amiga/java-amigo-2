@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AgendamentoServiceImpl implements AgendamentoService {
 
@@ -26,8 +27,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     }
 
     @Override
-    public Agendamento criarAgendamento(String descricao, int pacienteId) {
-        return agendamentoRepository.criarAgendamento(new Date(), descricao, pacienteId);
+    public Agendamento criarAgendamento(String descricao, int pacienteId, Date agendamento) {
+        return agendamentoRepository.criarAgendamento(agendamento, descricao, pacienteId);
     }
 
     @Override
@@ -42,8 +43,13 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     }
 
     @Override
-    public void confirmarAgendamento(int idAgendamento, Date data) {
+    public void confirmarAgendamento(int idAgendamento) {
 
-        agendamentoRepository.confirmarAgendamento(idAgendamento, data);
+        agendamentoRepository.confirmarAgendamento(idAgendamento);
+    }
+
+    @Override
+    public List<Agendamento> listarAgendamentosPorUsuario(int userId) {
+        return agendamentoRepository.listarAgendamentosPorUsuario(userId);
     }
 }

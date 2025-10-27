@@ -48,16 +48,16 @@ public class JdbcAcessoRepository implements AcessoRepository {
 
 
     @Override
-    public Acesso editarAcesso(Acesso acesso, int idPagina, int idUsuario) {
+    public Acesso editarAcesso(Acesso acesso, int idAcesso) {
         String sql = "UPDATE Acesso SET data_acesso = ?, id_pagina = ?, id_usuario=? WHERE id = ?";
         try (
                 Connection connection = this.databaseConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setDate(1, new java.sql.Date(acesso.getDataAcesso().getTime()));
-            ps.setInt(2, idPagina);
-            ps.setInt(3, idUsuario);
-            ps.setInt(4, acesso.getId());
+            ps.setInt(2, acesso.getIdPagina());
+            ps.setInt(3, acesso.getIdUsuario());
+            ps.setInt(4, idAcesso);
 
             int rows = ps.executeUpdate();
             if (rows == 0) {
@@ -77,7 +77,12 @@ public class JdbcAcessoRepository implements AcessoRepository {
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setInt(1, id);
-            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new RuntimeException("Nenhum acesso encontrado com o ID: " + id);
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar acesso", e);
         }
@@ -105,5 +110,31 @@ public class JdbcAcessoRepository implements AcessoRepository {
         }
         return acessos;
     }
+
+    @Override
+    public ArrayList<Acesso> listarByIdUsuario(int idUsuario) {
+        ArrayList<Acesso> acessos = new ArrayList<>();
+        String sql = "SELECT id, data_acesso, id_pagina, id_usuario FROM Acesso WHERE id_usuario = ?";
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    java.sql.Date dataAcesso = rs.getDate("data_acesso");
+                    int idPagina = rs.getInt("id_pagina");
+                    int idUsuarioResult = rs.getInt("id_usuario");
+
+                    acessos.add(new Acesso(id, new java.util.Date(dataAcesso.getTime()), idPagina, idUsuarioResult));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar acessos por id_usuario", e);
+        }
+        return acessos;
+    }
+
 }
 

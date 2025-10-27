@@ -14,13 +14,13 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Override
-    public Usuario criarUsuario(String nome, String email, String senha) {
-        return usuarioService.criarUsuario(nome, email, senha);
+    public Usuario criarUsuario(String nome, String email, String senha, boolean funcionario) {
+        return usuarioService.criarUsuario(nome, email, senha, funcionario);
     }
 
     @Override
-    public Usuario alterarNome(String nome) {
-        return usuarioService.alterarNome(nome);
+    public Usuario alterarNome(int id, String nome) {
+        return usuarioService.alterarNome(id, nome);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Override
-    public boolean loginExiste(String email, String senha) {
-        return usuarioService.loginExiste(email, senha);
+    public Usuario login(String email, String senha) {
+        return usuarioService.login(email, senha);
     }
 
     @Override

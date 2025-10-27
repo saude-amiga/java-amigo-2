@@ -23,9 +23,9 @@ public class AcessoServiceImpl implements AcessoService {
     }
 
     @Override
-    public Acesso editarAcesso(int idPagina, Acesso acesso) {
-        int idUsuario = acesso.getIdUsuario();
-        return acessoRepository.editarAcesso(acesso, idPagina, idUsuario);
+    public Acesso editarAcesso(int idAcesso, Acesso acesso) {
+        acesso.setId(idAcesso);
+        return acessoRepository.editarAcesso(acesso, idAcesso);
     }
 
     @Override
@@ -36,5 +36,10 @@ public class AcessoServiceImpl implements AcessoService {
     @Override
     public ArrayList<Acesso> listarAcessos() {
         return acessoRepository.listarAcesso();
+    }
+
+    @Override
+    public ArrayList<Acesso> listarAcessosPorUsuario(int userId){
+        return acessoRepository.listarByIdUsuario(userId);
     }
 }

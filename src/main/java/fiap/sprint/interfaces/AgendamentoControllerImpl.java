@@ -5,6 +5,7 @@ import fiap.sprint.domain.service.AgendamentoService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AgendamentoControllerImpl implements AgendamentoController {
 
@@ -15,9 +16,9 @@ public class AgendamentoControllerImpl implements AgendamentoController {
     }
 
     @Override
-    public Agendamento createAgendamento(String descricao, int pacienteId) {
+    public Agendamento createAgendamento(String descricao, int pacienteId, Date agendamento) {
 
-        return agendamentoService.criarAgendamento(descricao, pacienteId );
+        return agendamentoService.criarAgendamento(descricao, pacienteId, agendamento);
     }
 
     @Override
@@ -31,7 +32,12 @@ public class AgendamentoControllerImpl implements AgendamentoController {
     }
 
     @Override
-    public void confirmarAgendamento(int idAgendamento, Date dataAgendamento) {
-        agendamentoService.confirmarAgendamento(idAgendamento, dataAgendamento);
+    public void confirmarAgendamento(int idAgendamento) {
+        agendamentoService.confirmarAgendamento(idAgendamento);
+    }
+
+    @Override
+    public List<Agendamento> listarAgendamentosPorUsuario(int userId) {
+        return agendamentoService.listarAgendamentosPorUsuario(userId);
     }
 }

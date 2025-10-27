@@ -1,37 +1,25 @@
-package fiap.sprint.domain.model;
+package fiap.sprint.dto.output;
 
 import java.util.ArrayList;
 
-public class Usuario {
+public class UsuarioOutputDto {
     private int userId;
     private String name;
     private String email;
     private String senha;
     private boolean isFuncionario;
 
-    public Usuario(int userId, String name, String email, String senha) {
+    public UsuarioOutputDto(int userId, String name, String email, String senha) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.senha = senha;
-    }
-
-    public Usuario(int userId, String name, String email, String senha, boolean isFuncionario) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.senha = senha;
-        this.isFuncionario = isFuncionario;
-    }
-
-    public boolean isFuncionario() {
-        return isFuncionario;
+        this.isFuncionario = false;
     }
 
     public void setFuncionario(boolean funcionario) {
         isFuncionario = funcionario;
     }
-
     public int getUserId() {
         return userId;
     }

@@ -1,8 +1,8 @@
-package fiap.sprint.domain.model;
+package fiap.sprint.dto.output;
 
 import java.util.Date;
 
-public class Pergunta{
+public class PerguntaOutputDto{
 
     private int id;
     private String titulo;
@@ -11,19 +11,39 @@ public class Pergunta{
     private int autorDaReposta;
     private Date data;
 
-    public Pergunta(String titulo, int autor, Date data) {
+    public PerguntaOutputDto(String titulo, int autor, Date data) {
         this.titulo = titulo;
         this.autorDaPergunta = autor;
         this.data = data;
     }
 
-    public Pergunta(int id, String titulo, String corpo, int autorPergunta, int autorResposta, Date data) {
+    public PerguntaOutputDto(int id, String titulo, String corpo, int autorPergunta, int autorResposta, Date data) {
         this.id = id;
         this.titulo = titulo;
         this.corpo = corpo;
         this.autorDaPergunta = autorPergunta;
         this.autorDaReposta = autorResposta;
         this.data = data;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getCorpo() {
+        return corpo;
+    }
+
+    public int getAutorDaPergunta() {
+        return autorDaPergunta;
+    }
+
+    public int getAutorDaReposta() {
+        return autorDaReposta;
+    }
+
+    public Date getData() {
+        return data;
     }
 
     public int getId() {
@@ -45,25 +65,5 @@ public class Pergunta{
 
     private void setResposta(String resposta){
         this.corpo = resposta;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getCorpo() {
-        return corpo;
-    }
-
-    public int getAutorDaPergunta() {
-        return autorDaPergunta;
-    }
-
-    public int getAutorDaReposta() {
-        return autorDaReposta;
-    }
-
-    public Date getData() {
-        return data;
     }
 }

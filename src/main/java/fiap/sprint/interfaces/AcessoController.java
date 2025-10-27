@@ -13,4 +13,6 @@ public interface AcessoController {
     Acesso atualizarAcesso(int idPagina, Acesso acesso);
 
     ArrayList<Acesso> listarAcessos();
+
+    ArrayList<Acesso> listarAcessosPorUsuario(int userId);
 }

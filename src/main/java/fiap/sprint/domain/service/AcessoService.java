@@ -9,4 +9,5 @@ public interface AcessoService {
     Acesso editarAcesso(int idPagina, Acesso acesso);
     void deletarAcesso(int idAcesso);
     ArrayList<Acesso> listarAcessos();
+    ArrayList<Acesso> listarAcessosPorUsuario(int userId);
 }

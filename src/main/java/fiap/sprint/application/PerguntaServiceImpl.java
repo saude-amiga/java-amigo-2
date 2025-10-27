@@ -3,6 +3,7 @@ package fiap.sprint.application;
 import fiap.sprint.domain.model.Pergunta;
 import fiap.sprint.domain.repository.PerguntaRepository;
 import fiap.sprint.domain.service.PerguntaService;
+import fiap.sprint.infrastructure.exceptions.PerguntaException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +17,8 @@ public class PerguntaServiceImpl implements PerguntaService {
     }
 
     @Override
-    public Pergunta criarPergunta(String titulo, int autor, Date data) {
-        return perguntaRepository.criarPergunta( titulo,  autor,  data);
+    public Pergunta criarPergunta(String titulo, int autor) {
+        return perguntaRepository.criarPergunta( titulo,  autor,  new Date());
     }
 
     @Override

@@ -23,7 +23,7 @@ public class JdbcAgendamentoRepository implements AgendamentoRepository {
     }
 
     @Override
-    public void confirmarAgendamento(int agendamentoId, Date data) {
+    public void confirmarAgendamento(int agendamentoId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -243,6 +243,38 @@ public class JdbcAgendamentoRepository implements AgendamentoRepository {
                 }
             }
         }
+    }
+
+    @Override
+    public ArrayList<Agendamento> listarAgendamentosPorUsuario(int userId) {
+        ArrayList<Agendamento> agendamentos = new ArrayList<>();
+        String sql = "SELECT ID, DATA, DESCRICAO, PACIENTEID, CONFIRMADO FROM AGENDAMENTO WHERE PACIENTEID = ?";
+
+        try (
+                Connection connection = this.databaseConnection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setInt(1, userId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("ID");
+                    Date data = resultSet.getDate("DATA"); // java.sql.Date → java.util.Date
+                    String descricao = resultSet.getString("DESCRICAO");
+                    int pacienteId = resultSet.getInt("PACIENTEID");
+                    String confirmado = resultSet.getString("CONFIRMADO");
+
+                    boolean isConfirmado = "Y".equalsIgnoreCase(confirmado);
+
+                    Agendamento agendamento = new Agendamento(id, data, descricao, pacienteId, isConfirmado);
+                    agendamentos.add(agendamento);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao listar agendamentos por usuário", e);
+        }
+
+        return agendamentos;
     }
 
 }
