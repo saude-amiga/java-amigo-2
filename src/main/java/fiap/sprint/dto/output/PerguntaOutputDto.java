@@ -26,6 +26,26 @@ public class PerguntaOutputDto{
         this.data = data;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getCorpo() {
+        return corpo;
+    }
+
+    public int getAutorDaPergunta() {
+        return autorDaPergunta;
+    }
+
+    public int getAutorDaReposta() {
+        return autorDaReposta;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
     public int getId() {
         return id;
     }
