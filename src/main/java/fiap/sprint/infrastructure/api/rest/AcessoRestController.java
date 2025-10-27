@@ -51,7 +51,7 @@ public class AcessoRestController {
         try {
             acessoController.deletarAcesso(id);
             return Response.noContent().build();
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e) {  
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }

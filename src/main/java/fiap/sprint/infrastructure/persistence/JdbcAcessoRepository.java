@@ -77,7 +77,12 @@ public class JdbcAcessoRepository implements AcessoRepository {
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setInt(1, id);
-            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new RuntimeException("Nenhum acesso encontrado com o ID: " + id);
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao deletar acesso", e);
         }
