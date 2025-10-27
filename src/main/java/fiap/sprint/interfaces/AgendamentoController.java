@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AgendamentoController {
 
-    Agendamento createAgendamento(String descricao, int pacienteId);
+    Agendamento createAgendamento(String descricao, int pacienteId, Date agendamento);
 
     void deletarAgendamento(int id);
 

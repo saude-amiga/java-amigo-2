@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AgendamentoService {
     Agendamento getAgendamento(int id);
-    Agendamento criarAgendamento(String descricao, int pacienteId);
+    Agendamento criarAgendamento(String descricao, int pacienteId, Date agendamento);
     ArrayList<Agendamento> listarAgendamentos();
     void deletarAgendamento(int idAgendamento);
     void confirmarAgendamento(int idAgendamento);
