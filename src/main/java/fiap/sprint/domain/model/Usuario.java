@@ -7,12 +7,29 @@ public class Usuario {
     private String name;
     private String email;
     private String senha;
+    private boolean isFuncionario;
 
     public Usuario(int userId, String name, String email, String senha) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.senha = senha;
+    }
+
+    public Usuario(int userId, String name, String email, String senha, boolean isFuncionario) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.senha = senha;
+        this.isFuncionario = isFuncionario;
+    }
+
+    public boolean isFuncionario() {
+        return isFuncionario;
+    }
+
+    public void setFuncionario(boolean funcionario) {
+        isFuncionario = funcionario;
     }
 
     public int getUserId() {
