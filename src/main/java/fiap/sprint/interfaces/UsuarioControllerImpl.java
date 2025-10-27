@@ -14,8 +14,8 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @Override
-    public Usuario criarUsuario(String nome, String email, String senha) {
-        return usuarioService.criarUsuario(nome, email, senha);
+    public Usuario criarUsuario(String nome, String email, String senha, boolean funcionario) {
+        return usuarioService.criarUsuario(nome, email, senha, funcionario);
     }
 
     @Override

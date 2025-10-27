@@ -25,7 +25,7 @@ public class UsuarioRestController {
     @POST
     public Response create(UsuarioInputDto dto) {
         try {
-            Usuario usuarioCriado = usuarioController.criarUsuario(dto.getName(), dto.getEmail(), dto.getSenha());
+            Usuario usuarioCriado = usuarioController.criarUsuario(dto.getName(), dto.getEmail(), dto.getSenha(), dto.isFuncionario());
             UsuarioOutputDto usuarioSaida = UsuarioMapper.toDto(usuarioCriado);
             return Response.status(Response.Status.CREATED).entity(usuarioSaida).build();
         } catch (RuntimeException e) {

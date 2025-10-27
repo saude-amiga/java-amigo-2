@@ -17,7 +17,7 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
-    public Usuario criarUsuario(String nome, String email, String senha) {
+    public Usuario criarUsuario(String nome, String email, String senha, boolean funcionario) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -25,11 +25,12 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
             connection = this.databaseConnection.getConnection();
             connection.setAutoCommit(false);
 
-            String sqlUsuario = "INSERT INTO "+tableNome+" (NAME, EMAIL, SENHA) VALUES (?, ?, ?) ";
+            String sqlUsuario = "INSERT INTO "+tableNome+" (NAME, EMAIL, SENHA, IS_FUNCIONARIO) VALUES (?, ?, ?, ?) ";
             preparedStatement = connection.prepareStatement(sqlUsuario, new String[]{"ID"});
             preparedStatement.setString(1, nome);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, senha);
+            preparedStatement.setBoolean(4, funcionario);
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {

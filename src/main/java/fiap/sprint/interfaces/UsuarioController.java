@@ -5,7 +5,7 @@ import fiap.sprint.domain.model.Usuario;
 import java.util.ArrayList;
 
 public interface UsuarioController {
-    Usuario criarUsuario(String nome, String email, String senha );
+    Usuario criarUsuario(String nome, String email, String senha, boolean funcionario);
     Usuario alterarNome(int id, String nome);
     Usuario alterarEmail(String email);
     ArrayList<Usuario> listarUsuarios();

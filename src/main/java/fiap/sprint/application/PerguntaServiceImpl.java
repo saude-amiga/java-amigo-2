@@ -22,10 +22,7 @@ public class PerguntaServiceImpl implements PerguntaService {
     }
 
     @Override
-    public Pergunta responderPergunta(int id, String resposta, int autor, boolean isFuncionario) {
-        if(!isFuncionario) {
-            throw new PerguntaException("Usuário sem permissão de envio de resposta");
-        }
+    public Pergunta responderPergunta(int id, String resposta, int autor) {
         return perguntaRepository.responderPergunta(id, resposta, autor);
     }
 

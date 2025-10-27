@@ -20,8 +20,8 @@ public class PerguntaControllerImpl implements PerguntaController {
     }
 
     @Override
-    public Pergunta responderPergunta(int id, String resposta, int autor, boolean isFuncionario) {
-        return perguntaService.responderPergunta(id, resposta, autor, isFuncionario);
+    public Pergunta responderPergunta(int id, String resposta, int autor) {
+        return perguntaService.responderPergunta(id, resposta, autor);
     }
 
     @Override

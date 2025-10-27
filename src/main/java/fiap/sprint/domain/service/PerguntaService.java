@@ -7,7 +7,7 @@ import java.util.Date;
 
 public interface PerguntaService {
     Pergunta criarPergunta(String titulo, int autor);
-    Pergunta responderPergunta(int id, String resposta, int autor, boolean isFuncionario);
+    Pergunta responderPergunta(int id, String resposta, int autor);
     void deletarPergunta(int id);
     ArrayList<Pergunta> listarPerguntas();
 

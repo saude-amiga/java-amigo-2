@@ -29,8 +29,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario criarUsuario(String nome, String email, String senha)  {
-        return usuarioRepository.criarUsuario(nome, email, senha);
+    public Usuario criarUsuario(String nome, String email, String senha, boolean funcionario)  {
+        return usuarioRepository.criarUsuario(nome, email, senha, funcionario);
     }
 
     @Override
