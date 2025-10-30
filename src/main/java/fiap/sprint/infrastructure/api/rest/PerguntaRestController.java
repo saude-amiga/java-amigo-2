@@ -26,7 +26,8 @@ public class PerguntaRestController {
     @POST
     public Response create(PerguntaInputDto dto) {
         try {
-            Pergunta perguntaCriado = perguntaController.criarPergunta(dto.getTitulo(), dto.getAutorDaPergunta());
+            Pergunta perguntaCriado = perguntaController.criarPergunta(dto.getTitulo(), dto.getAutorDaPergunta(),
+                    dto.getAssunto(), dto.getEmail(), dto.getCelular());
             PerguntaOutputDto perguntaSaida = PerguntaMapper.toDto(perguntaCriado);
             return Response.status(Response.Status.CREATED).entity(perguntaSaida).build();
         } catch (RuntimeException e) {

@@ -6,10 +6,41 @@ public class PerguntaInputDto{
 
     private int id;
     private String titulo;
-    private int autorDaPergunta;
+    private String autorDaPergunta;
+    private String email;
+    private String celular;
+    private String assunto;
     private Date data;
 
-    public PerguntaInputDto(String titulo, int autor, Date data) {
+    public String getAssunto() {
+        return assunto;
+    }
+
+    public void setAssunto(String assunto) {
+        this.assunto = assunto;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAutorDaPergunta(String autorDaPergunta) {
+        this.autorDaPergunta = autorDaPergunta;
+    }
+
+    public PerguntaInputDto(String titulo, String autor, Date data) {
         this.titulo = titulo;
         this.autorDaPergunta = autor;
         this.data = data;
@@ -21,14 +52,6 @@ public class PerguntaInputDto{
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    public int getAutorDaPergunta() {
-        return autorDaPergunta;
-    }
-
-    public void setAutorDaPergunta(int autorDaPergunta) {
-        this.autorDaPergunta = autorDaPergunta;
     }
 
     public Date getData() {
@@ -47,4 +70,7 @@ public class PerguntaInputDto{
         this.id = id;
     }
 
+    public String getAutorDaPergunta() {
+        return autorDaPergunta;
+    }
 }

@@ -17,8 +17,8 @@ public class PerguntaServiceImpl implements PerguntaService {
     }
 
     @Override
-    public Pergunta criarPergunta(String titulo, int autor) {
-        return perguntaRepository.criarPergunta( titulo,  autor,  new Date());
+    public Pergunta criarPergunta(String titulo, String autor, String assunto, String email, String celular) {
+        return perguntaRepository.criarPergunta( titulo,  autor,  new Date(), assunto, email, celular);
     }
 
     @Override

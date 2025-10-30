@@ -31,8 +31,8 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
                 int id = rs.getInt("id");
                 String titulo = rs.getString("titulo");
                 String corpo = rs.getString("corpo");
-                int autorPergunta = rs.getInt("autor_da_pergunta");
-                Integer autorResposta = rs.getObject("autor_da_resposta") != null ? rs.getInt("autor_da_resposta") : -1;
+                String autorPergunta = rs.getString("autor_da_pergunta");
+                int autorResposta = rs.getObject("autor_da_resposta") != null ? rs.getInt("autor_da_resposta") : -1;
                 Date data = rs.getDate("data");
                 perguntas.add(new Pergunta(id, titulo, corpo, autorPergunta, autorResposta, data));
             }
@@ -80,7 +80,7 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
     }
 
     @Override
-    public Pergunta criarPergunta(String titulo, int autor, Date data) {
+    public Pergunta criarPergunta(String titulo, String autor, Date date, String assunto, String email, String celular) {
         String sql = "INSERT INTO Pergunta (titulo, corpo, autor_da_pergunta, data) VALUES (?, ?, ?, ?)";
         try (
                 Connection connection = this.databaseConnection.getConnection();
@@ -88,8 +88,8 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
         ) {
             ps.setString(1, titulo);
             ps.setString(2, "");
-            ps.setInt(3, autor);
-            ps.setDate(4, new java.sql.Date(data.getTime()));
+            ps.setString(3, autor);
+            ps.setDate(4, new java.sql.Date(date.getTime()));
             int affected = ps.executeUpdate();
             if (affected == 0) {
                 throw new RuntimeException("Erro ao criar pergunta");
@@ -97,7 +97,7 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
                     int id = rs.getInt(1);
-                    return new Pergunta(id, titulo, "", autor, -1, data);
+                    return new Pergunta(id, titulo, "", autor, -1, date);
                 }
             }
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
                             rs.getInt("id"),
                             rs.getString("titulo"),
                             rs.getString("corpo"),
-                            rs.getInt("autor_da_pergunta"),
+                            rs.getString("autor_da_pergunta"),
                             rs.getObject("autor_da_resposta") != null ? rs.getInt("autor_da_resposta") : null,
                             rs.getDate("data")
                     );

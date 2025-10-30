@@ -7,17 +7,17 @@ public class PerguntaOutputDto{
     private int id;
     private String titulo;
     private String corpo;
-    private int autorDaPergunta;
+    private String autorDaPergunta;
     private int autorDaReposta;
     private Date data;
 
-    public PerguntaOutputDto(String titulo, int autor, Date data) {
+    public PerguntaOutputDto(String titulo, String autor, Date data) {
         this.titulo = titulo;
         this.autorDaPergunta = autor;
         this.data = data;
     }
 
-    public PerguntaOutputDto(int id, String titulo, String corpo, int autorPergunta, int autorResposta, Date data) {
+    public PerguntaOutputDto(int id, String titulo, String corpo, String autorPergunta, int autorResposta, Date data) {
         this.id = id;
         this.titulo = titulo;
         this.corpo = corpo;
@@ -34,7 +34,7 @@ public class PerguntaOutputDto{
         return corpo;
     }
 
-    public int getAutorDaPergunta() {
+    public String getAutorDaPergunta() {
         return autorDaPergunta;
     }
 

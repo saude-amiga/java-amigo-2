@@ -7,17 +7,17 @@ public class Pergunta{
     private int id;
     private String titulo;
     private String corpo;
-    private int autorDaPergunta;
+    private String autorDaPergunta;
     private int autorDaReposta;
     private Date data;
 
-    public Pergunta(String titulo, int autor, Date data) {
+    public Pergunta(String titulo, String autor, Date data) {
         this.titulo = titulo;
         this.autorDaPergunta = autor;
         this.data = data;
     }
 
-    public Pergunta(int id, String titulo, String corpo, int autorPergunta, int autorResposta, Date data) {
+    public Pergunta(int id, String titulo, String corpo, String autorPergunta, int autorResposta, Date data) {
         this.id = id;
         this.titulo = titulo;
         this.corpo = corpo;
@@ -55,7 +55,7 @@ public class Pergunta{
         return corpo;
     }
 
-    public int getAutorDaPergunta() {
+    public String getAutorDaPergunta() {
         return autorDaPergunta;
     }
 

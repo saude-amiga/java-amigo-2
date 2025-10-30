@@ -15,8 +15,8 @@ public class PerguntaControllerImpl implements PerguntaController {
     }
 
     @Override
-    public Pergunta criarPergunta(String titulo, int autor) {
-        return perguntaService.criarPergunta(titulo, autor);
+    public Pergunta criarPergunta(String titulo, String autor, String assunto, String email, String celular) {
+        return perguntaService.criarPergunta(titulo, autor, assunto, email, celular);
     }
 
     @Override

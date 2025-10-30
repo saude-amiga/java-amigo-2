@@ -51,11 +51,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void deletarUsuario(int id) {
         //TODO: Deveria otimizar isso no futuro
-        for (Pergunta pergunta : perguntaRepository.listarPerguntas()){
-            if(pergunta.getAutorDaPergunta() == id){
-                perguntaRepository.deletarPergunta(id);
-            }
-        }
         for (Agendamento agendamento : agendamentoRepository.listarAgendamentos()){
             if(agendamento.getPacienteId() == id){
                 agendamentoRepository.deletarAgendamento(id);
