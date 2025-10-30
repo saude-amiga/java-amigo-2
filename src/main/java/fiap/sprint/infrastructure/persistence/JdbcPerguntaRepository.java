@@ -81,7 +81,7 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
 
     @Override
     public Pergunta criarPergunta(String titulo, String autor, Date date, String assunto, String email, String celular) {
-        String sql = "INSERT INTO Pergunta (titulo, corpo, autor_da_pergunta, data) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Pergunta (titulo, corpo, autor_da_pergunta, data, assunto, email, celular) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (
                 Connection connection = this.databaseConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql, new String[]{"ID"})
@@ -90,6 +90,9 @@ public class JdbcPerguntaRepository implements PerguntaRepository {
             ps.setString(2, "");
             ps.setString(3, autor);
             ps.setDate(4, new java.sql.Date(date.getTime()));
+            ps.setString(5, assunto);
+            ps.setString(6, email);
+            ps.setString(7, celular);
             int affected = ps.executeUpdate();
             if (affected == 0) {
                 throw new RuntimeException("Erro ao criar pergunta");
