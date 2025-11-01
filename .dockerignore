@@ -1,5 +1,17 @@
-*
-!target/*-runner
-!target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
+# IDE files
+.idea
+*.iml
+.vscode
+
+# Build output (will be created during Docker build)
+target
+
+# Git
+.git
+.gitignore
+
+# OS files
+.DS_Store
+
+# Documentation
+README.md
