@@ -9,12 +9,12 @@ public class UsuarioInputDto {
     private String senha;
     private boolean isFuncionario;
 
-    public UsuarioInputDto(int userId, String name, String email, String senha) {
+    public UsuarioInputDto(int userId, String name, String email, String senha, boolean isFuncionario) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.senha = senha;
-        this.isFuncionario = false;
+        this.isFuncionario = isFuncionario;
     }
 
     public void setFuncionario(boolean funcionario) {
