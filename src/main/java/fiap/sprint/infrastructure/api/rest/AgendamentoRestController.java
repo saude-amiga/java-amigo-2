@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/Agendamento")
+@Path("/agendamento")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AgendamentoRestController {
@@ -56,7 +56,7 @@ public class AgendamentoRestController {
     }
 
     @GET
-    @Path("/{userId}")
+    @Path("/{userid}")
     public Response listarAgendamentosPorUsuario(@PathParam("userId") int userId) {
         try {
             List<Agendamento> agendamentoList = agendamentoController.listarAgendamentosPorUsuario(userId);

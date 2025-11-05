@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import fiap.sprint.mapper.AcessoMapper;
 
-@Path("/Acesso")
+@Path("/acesso")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AcessoRestController {
@@ -57,7 +57,7 @@ public class AcessoRestController {
     }
 
     @GET
-    @Path("/{userId}")
+    @Path("/{userid}")
     public Response listAllByUser(@PathParam("userId") int userId) {
         try {
             List<Acesso> acessoList = acessoController.listarAcessosPorUsuario(userId);
