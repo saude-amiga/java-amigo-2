@@ -12,6 +12,7 @@ import fiap.sprint.domain.repository.UsuarioRepository;
 import fiap.sprint.domain.service.UsuarioService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -70,6 +71,17 @@ public class UsuarioServiceImpl implements UsuarioService {
             return usuarioRepository.getUsuarioByEmail(email);
         }
         throw new CredencialException("Login incorreto!");
+    }
+
+    @Override
+    String getUsuarioById(int id){
+        List<Usuario> usuarioList = listarUsuarios();
+        for(Usuario usuario : usuarioList){
+            if(usuario.getUserId() == id){
+                return usuario.getName();
+            }
+        }
+        return "Usuário não identificado";
     }
 
     private boolean loginExiste(String email, String senha){
