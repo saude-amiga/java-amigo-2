@@ -74,7 +74,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    String getUsuarioById(int id){
+    public String getUsuarioById(int id){
         List<Usuario> usuarioList = listarUsuarios();
         for(Usuario usuario : usuarioList){
             if(usuario.getUserId() == id){
