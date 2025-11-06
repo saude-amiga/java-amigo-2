@@ -194,7 +194,7 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
 
         try {
             connection = this.databaseConnection.getConnection();
-            String sql = "SELECT ID, NAME, EMAIL, SENHA FROM " + tableNome + " WHERE EMAIL = ?";
+            String sql = "SELECT ID, NAME, EMAIL, SENHA, IS_FUNCIONARIO FROM " + tableNome + " WHERE EMAIL = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
 
@@ -204,8 +204,8 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
                 int id = resultSet.getInt("ID");
                 String nome = resultSet.getString("NAME");
                 String senha = resultSet.getString("SENHA");
-
-                return new Usuario(id, nome, email, senha);
+                boolean is_funcionario = resultSet.getBoolean("IS_FUNCIONARIO");
+                return new Usuario(id, nome, email, senha, is_funcionario);
             } else {
                 throw new InfraestruturaException("Usuário não encontrado com o email informado: " + email);
             }
