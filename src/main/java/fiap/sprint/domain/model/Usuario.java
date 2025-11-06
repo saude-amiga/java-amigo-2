@@ -24,6 +24,10 @@ public class Usuario {
         this.isFuncionario = isFuncionario;
     }
 
+    public Usuario() {
+
+    }
+
     public boolean isFuncionario() {
         return isFuncionario;
     }

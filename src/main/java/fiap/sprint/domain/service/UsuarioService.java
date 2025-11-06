@@ -11,5 +11,5 @@ public interface UsuarioService {
     ArrayList<Usuario> listarUsuarios();
     void deletarUsuario(int id);
     Usuario login(String email, String senha);
-    public String getUsuarioById(int id);
+    Usuario getUsuarioNameById(int id);
 }

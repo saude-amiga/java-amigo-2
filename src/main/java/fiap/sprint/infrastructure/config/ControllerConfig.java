@@ -21,8 +21,8 @@ public class ControllerConfig {
     }
 
     @ApplicationScoped
-    public PerguntaController perguntaController(PerguntaService perguntaService) {
-        return new PerguntaControllerImpl(perguntaService);
+    public PerguntaController perguntaController(PerguntaService perguntaService,  UsuarioService usuarioService) {
+        return new PerguntaControllerImpl(perguntaService, usuarioService);
     }
 
     @ApplicationScoped

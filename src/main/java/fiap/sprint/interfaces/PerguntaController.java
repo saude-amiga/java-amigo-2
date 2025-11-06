@@ -10,4 +10,5 @@ public interface PerguntaController {
     Pergunta responderPergunta(int id, String resposta, int autor);
     void deletarPergunta(int id);
     ArrayList<Pergunta> listarPerguntas();
+    String getUsuarioById(int id);
 }

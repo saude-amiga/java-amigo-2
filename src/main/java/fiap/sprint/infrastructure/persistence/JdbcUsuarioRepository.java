@@ -225,5 +225,47 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
         }
     }
 
+    @Override
+    public Usuario getUsuarioById(int idUsuario) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = this.databaseConnection.getConnection();
+            String sql = "SELECT ID, NAME, EMAIL, SENHA, IS_FUNCIONARIO FROM " + tableNome + " WHERE ID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, idUsuario);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String nome = resultSet.getString("NAME");
+                String email = resultSet.getString("EMAIL");
+                String senha = resultSet.getString("SENHA");
+                boolean is_funcionario = resultSet.getBoolean("IS_FUNCIONARIO");
+
+                return new Usuario(id, nome, email, senha, is_funcionario);
+            } else {
+                throw new InfraestruturaException("Usuário não encontrado com o ID informado: " + idUsuario);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar usuário por ID: " + e.getMessage(), e);
+        } catch (InfraestruturaException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
 }

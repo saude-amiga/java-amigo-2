@@ -2,6 +2,7 @@ package fiap.sprint.interfaces;
 
 import fiap.sprint.domain.model.Pergunta;
 import fiap.sprint.domain.service.PerguntaService;
+import fiap.sprint.domain.service.UsuarioService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,9 +10,10 @@ import java.util.Date;
 public class PerguntaControllerImpl implements PerguntaController {
 
     private final PerguntaService perguntaService;
-
-    public PerguntaControllerImpl(PerguntaService perguntaService) {
+    private final UsuarioService usuarioService;
+    public PerguntaControllerImpl(PerguntaService perguntaService, UsuarioService usuarioService) {
         this.perguntaService = perguntaService;
+        this.usuarioService = usuarioService;
     }
 
     @Override
@@ -32,5 +34,10 @@ public class PerguntaControllerImpl implements PerguntaController {
     @Override
     public ArrayList<Pergunta> listarPerguntas() {
         return perguntaService.listarPerguntas();
+    }
+
+    @Override
+    public String getUsuarioById(int id) {
+        return usuarioService.getUsuarioNameById(id).getName();
     }
 }

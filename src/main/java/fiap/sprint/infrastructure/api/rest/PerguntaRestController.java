@@ -28,7 +28,7 @@ public class PerguntaRestController {
         try {
             Pergunta perguntaCriado = perguntaController.criarPergunta(dto.getTitulo(), dto.getAutorDaPergunta(),
                     dto.getAssunto(), dto.getEmail(), dto.getCelular());
-            PerguntaOutputDto perguntaSaida = PerguntaMapper.toDto(perguntaCriado);
+            PerguntaOutputDto perguntaSaida = PerguntaMapper.toDto(perguntaCriado, null);
             return Response.status(Response.Status.CREATED).entity(perguntaSaida).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -40,7 +40,7 @@ public class PerguntaRestController {
     public Response update(@PathParam("id") int id, RespostaInputDto dto) {
         try {
             Pergunta perguntaEditado = perguntaController.responderPergunta(id, dto.getCorpo(), dto.getAutorDaReposta());
-            PerguntaOutputDto perguntaSaida = PerguntaMapper.toDto(perguntaEditado);
+            PerguntaOutputDto perguntaSaida = PerguntaMapper.toDto(perguntaEditado, null);
             return Response.ok(perguntaSaida).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
@@ -64,7 +64,8 @@ public class PerguntaRestController {
             List<Pergunta> perguntaList = perguntaController.listarPerguntas();
             List<PerguntaOutputDto> perguntaSaida = new ArrayList<>();
             for (Pergunta pergunta : perguntaList) {
-                perguntaSaida.add(PerguntaMapper.toDto(pergunta));
+                String nomeAutor = perguntaController.getUsuarioById(pergunta.getAutorDaReposta());
+                perguntaSaida.add(PerguntaMapper.toDto(pergunta, nomeAutor));
             }
             return Response.ok(perguntaSaida).build();
         } catch (RuntimeException e) {

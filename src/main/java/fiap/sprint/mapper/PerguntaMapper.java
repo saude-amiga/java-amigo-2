@@ -7,7 +7,7 @@ import fiap.sprint.dto.output.PerguntaOutputDto;
 
 public class PerguntaMapper {
     static UsuarioService usuarioService;
-    public static PerguntaOutputDto toDto(Pergunta perguntaCriado) {
+    public static PerguntaOutputDto toDto(Pergunta perguntaCriado, String nomeAutorResposta) {
         PerguntaOutputDto perguntaOutputDto = new PerguntaOutputDto(
                 perguntaCriado.getId(),
                 perguntaCriado.getTitulo(),
@@ -16,7 +16,7 @@ public class PerguntaMapper {
                 perguntaCriado.getAutorDaReposta(),
                 perguntaCriado.getData()
         );
-        perguntaOutputDto.setNomeAutorResposta(usuarioService.getUsuarioById(perguntaOutputDto.getId()));
+        perguntaOutputDto.setNomeAutorResposta(nomeAutorResposta);
         return perguntaOutputDto;
     }
 

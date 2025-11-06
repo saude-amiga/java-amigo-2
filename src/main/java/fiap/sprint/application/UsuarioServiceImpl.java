@@ -74,14 +74,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public String getUsuarioById(int id){
-        List<Usuario> usuarioList = listarUsuarios();
-        for(Usuario usuario : usuarioList){
-            if(usuario.getUserId() == id){
-                return usuario.getName();
-            }
+    public Usuario getUsuarioNameById(int id) {
+        if(id < 0){
+            Usuario u =  new Usuario();
+            u.setName("");
+            return u;
         }
-        return "Usuário não identificado";
+        return usuarioRepository.getUsuarioById(id);
     }
 
     private boolean loginExiste(String email, String senha){
