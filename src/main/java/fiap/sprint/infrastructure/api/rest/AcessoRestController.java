@@ -58,7 +58,7 @@ public class AcessoRestController {
 
     @GET
     @Path("/{userid}")
-    public Response listAllByUser(@PathParam("userId") int userId) {
+    public Response listAllByUser(@PathParam("userid") int userId) {
         try {
             List<Acesso> acessoList = acessoController.listarAcessosPorUsuario(userId);
             List<AcessoOutputDto> acessoSaida = new ArrayList<>();
