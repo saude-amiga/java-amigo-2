@@ -57,7 +57,7 @@ public class AgendamentoRestController {
 
     @GET
     @Path("/{userid}")
-    public Response listarAgendamentosPorUsuario(@PathParam("userId") int userId) {
+    public Response listarAgendamentosPorUsuario(@PathParam("userid") int userId) {
         try {
             List<Agendamento> agendamentoList = agendamentoController.listarAgendamentosPorUsuario(userId);
             List<AgendamentoOutputDto> agendamentoSaida = new ArrayList<>();
