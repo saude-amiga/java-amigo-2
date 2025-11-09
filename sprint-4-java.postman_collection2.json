@@ -1,0 +1,573 @@
+{
+	"info": {
+		"_postman_id": "b7910157-35d3-4ede-a1c7-8e98c0e82ca1",
+		"name": "sprint-4-java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30054948",
+		"_collection_link": "https://www.postman.com/aviation-astronaut-85642828/workspace/sprint-4-java-saude-amiga/collection/30054948-b7910157-35d3-4ede-a1c7-8e98c0e82ca1?action=share&source=collection_link&creator=30054948"
+	},
+	"item": [
+		{
+			"name": "Acesso",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idPagina\": 7,\r\n  \"idUsuario\": 101\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}acesso",
+							"host": [
+								"{{baseURL}}acesso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dataAcesso\": \"2024-10-27T23:11:13.815+00:00\",\r\n    \"idPagina\": 24,\r\n    \"idUsuario\": 101\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}acesso/17",
+							"host": [
+								"{{baseURL}}acesso"
+							],
+							"path": [
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}acesso/15",
+							"host": [
+								"{{baseURL}}acesso"
+							],
+							"path": [
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}acesso/66",
+							"host": [
+								"{{baseURL}}acesso"
+							],
+							"path": [
+								"66"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Agendamento",
+			"item": [
+				{
+					"name": "criarAgendamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"descricao\": \"Consulta de rotina\",\r\n  \"pacienteId\": 101,\r\n  \"data\": \"2025-10-27\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}agendamento/",
+							"host": [
+								"{{baseURL}}agendamento"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmarAgendamento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}agendamento/confirmar/86",
+							"host": [
+								"{{baseURL}}agendamento"
+							],
+							"path": [
+								"confirmar",
+								"86"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarAgendamento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}agendamento/86",
+							"host": [
+								"{{baseURL}}agendamento"
+							],
+							"path": [
+								"86"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarAgendamentoPorUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}agendamento/63",
+							"host": [
+								"{{baseURL}}agendamento"
+							],
+							"path": [
+								"63"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pergunta",
+			"item": [
+				{
+					"name": "pergunta postagem",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Como analisar este código\",\r\n    \"autorDaPergunta\" : \"Mario mariano\",\r\n    \"email\":\"mario@test.com\",\r\n    \"celular\":\"119111-1111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}pergunta",
+							"host": [
+								"{{baseURL}}pergunta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resposta pergunta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"corpo\": \"Faça estes testes\",\r\n    \"autorDaResposta\" : 48\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}pergunta/83",
+							"host": [
+								"{{baseURL}}pergunta"
+							],
+							"path": [
+								"83"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}pergunta/233",
+							"host": [
+								"{{baseURL}}pergunta"
+							],
+							"path": [
+								"233"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarTodas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}pergunta",
+							"host": [
+								"{{baseURL}}pergunta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Vinicius Soteras\",\r\n  \"email\": \"vinicius@example.com\",\r\n  \"senha\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}usuario",
+							"host": [
+								"{{baseURL}}usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create funcionario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Vio Segundo\",\r\n  \"email\": \"viniciusfuioSegunod@example.com\",\r\n  \"senha\": \"123456\",\r\n  \"isFuncionario\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}usuario",
+							"host": [
+								"{{baseURL}}usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Vinicius Braga\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}usuario/101",
+							"host": [
+								"{{baseURL}}usuario"
+							],
+							"path": [
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}usuario",
+							"host": [
+								"{{baseURL}}usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}usuario/69",
+							"host": [
+								"{{baseURL}}usuario"
+							],
+							"path": [
+								"69"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "chave-primaria",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"vinicius@example.com\",\r\n  \"senha\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}usuario/login",
+							"host": [
+								"{{baseURL}}usuario"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api-saude-amiga.onrender.com/"
+		}
+	]
+}
